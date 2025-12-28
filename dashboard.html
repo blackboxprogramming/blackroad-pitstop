@@ -2335,6 +2335,44 @@
         .konami-close { padding: 12px 30px; background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue)); border: none; border-radius: 30px; color: white; font-size: 16px; cursor: pointer; }
         .disco-ball { font-size: 100px; animation: spin 3s linear infinite; margin-bottom: 20px; }
         @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+        /* SNOW */ .snowflake { position: fixed; color: #fff; top: -20px; z-index: 9998; pointer-events: none; animation: snowfall linear forwards; }
+        @keyframes snowfall { to { transform: translateY(100vh) rotate(360deg); } }
+        /* SHAKE */ @keyframes shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        body.shake { animation: shake 0.3s ease; }
+        /* VOICE */ .voice-indicator { position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, #E74C3C, #C0392B); padding: 12px 20px; border-radius: 30px; color: white; font-size: 14px; display: flex; align-items: center; gap: 10px; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .voice-indicator.active { opacity: 1; visibility: visible; }
+        .voice-waves { display: flex; gap: 3px; } .voice-wave { width: 3px; background: white; border-radius: 2px; animation: vwave 0.5s ease infinite; }
+        @keyframes vwave { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(0.5); } }
+        /* BOOT */ .boot-screen { position: fixed; inset: 0; background: #000; z-index: 20000; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s; }
+        .boot-screen.hidden { opacity: 0; pointer-events: none; }
+        .boot-logo { font-size: 48px; font-weight: 900; background: linear-gradient(45deg, #FF9D00, #FF006B, #7700FF); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 30px; }
+        .boot-progress { width: 300px; height: 4px; background: #222; border-radius: 2px; overflow: hidden; }
+        .boot-bar { height: 100%; background: linear-gradient(90deg, #FF9D00, #7700FF); width: 0%; transition: width 0.3s; }
+        .boot-text { margin-top: 20px; font-family: monospace; font-size: 12px; color: #666; }
+        /* SNAKE */ .snake-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 15000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .snake-overlay.show { opacity: 1; visibility: visible; }
+        .snake-score { margin-top: 20px; font-size: 20px; color: white; }
+        /* TYPING */ .typing-test { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 14px; }
+        .typing-prompt { font-size: 12px; color: var(--text-secondary); margin-bottom: 8px; padding: 8px; background: var(--glass-bg); border-radius: 8px; }
+        .typing-input { width: 100%; padding: 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 8px; color: var(--text-primary); font-size: 12px; }
+        .typing-stats { display: flex; justify-content: space-around; margin-top: 8px; }
+        .typing-stat-value { font-size: 18px; font-weight: 700; color: var(--accent-purple); }
+        .typing-stat-label { font-size: 9px; color: var(--text-secondary); }
+        /* THEME PICKER */ .theme-picker { position: fixed; bottom: 100px; left: 20px; background: var(--bg-medium); border: 1px solid var(--glass-border); border-radius: 16px; padding: 14px; z-index: 500; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s; }
+        .theme-picker.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .theme-colors { display: flex; gap: 6px; flex-wrap: wrap; }
+        .theme-color { width: 26px; height: 26px; border-radius: 50%; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+        .theme-color:hover { transform: scale(1.2); }
+        .theme-color.active { border-color: white; }
+        /* WEATHER */ .weather-widget { background: linear-gradient(135deg, #1a1a2e, #16213e); border: 1px solid var(--glass-border); border-radius: 16px; padding: 12px; display: flex; align-items: center; gap: 10px; }
+        .weather-icon { font-size: 32px; } .weather-temp { font-size: 22px; font-weight: 700; } .weather-desc { font-size: 10px; color: var(--text-secondary); }
+        /* CRYPTO */ .crypto-ticker { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 10px; }
+        .crypto-item { display: flex; align-items: center; gap: 6px; padding: 4px 0; font-size: 11px; }
+        .crypto-icon { font-size: 16px; } .crypto-name { flex: 1; } .crypto-price { font-weight: 600; }
+        .crypto-change { font-size: 9px; padding: 2px 4px; border-radius: 3px; }
+        .crypto-change.up { background: rgba(39,174,96,0.2); color: #27AE60; }
+        .crypto-change.down { background: rgba(231,76,60,0.2); color: #E74C3C; }
     </style>
 </head>
 <body>
@@ -2463,6 +2501,33 @@
             </div>
         </div>
 
+        <!-- Weather Widget -->
+        <div class="weather-widget" id="weather-widget">
+            <div class="weather-icon" id="weather-icon">🌤️</div>
+            <div>
+                <div class="weather-temp"><span id="weather-temp">72</span>°F</div>
+                <div class="weather-desc" id="weather-desc">Partly Cloudy</div>
+            </div>
+        </div>
+
+        <!-- Crypto Ticker -->
+        <div class="crypto-ticker">
+            <div style="font-size:12px;font-weight:600;margin-bottom:8px;">📈 Crypto</div>
+            <div id="crypto-list"></div>
+        </div>
+
+        <!-- Typing Test -->
+        <div class="typing-test">
+            <div style="font-size:12px;font-weight:600;margin-bottom:8px;">⌨️ Typing Test</div>
+            <div class="typing-prompt" id="typing-prompt">Click to start typing test...</div>
+            <input type="text" class="typing-input" id="typing-input" placeholder="Start typing..." disabled>
+            <div class="typing-stats">
+                <div class="typing-stat"><div class="typing-stat-value" id="wpm">0</div><div class="typing-stat-label">WPM</div></div>
+                <div class="typing-stat"><div class="typing-stat-value" id="accuracy">0</div><div class="typing-stat-label">ACC%</div></div>
+                <div class="typing-stat"><div class="typing-stat-value" id="time-left">30</div><div class="typing-stat-label">SEC</div></div>
+            </div>
+        </div>
+
         <!-- Online Presence -->
         <div class="presence-indicator">
             <div class="presence-dot"></div>
@@ -2585,6 +2650,48 @@
                     <div class="shortcut-keys"><span class="shortcut-key">⌘</span><span class="shortcut-key">A</span></div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Boot Screen -->
+    <div class="boot-screen" id="boot-screen">
+        <div class="boot-logo">BLACKROAD OS</div>
+        <div class="boot-progress"><div class="boot-bar" id="boot-bar"></div></div>
+        <div class="boot-text" id="boot-text">Initializing...</div>
+    </div>
+
+    <!-- Voice Indicator -->
+    <div class="voice-indicator" id="voice-indicator">
+        <div class="voice-waves">
+            <div class="voice-wave" style="height:8px"></div>
+            <div class="voice-wave" style="height:16px"></div>
+            <div class="voice-wave" style="height:12px"></div>
+            <div class="voice-wave" style="height:20px"></div>
+            <div class="voice-wave" style="height:10px"></div>
+        </div>
+        <span>Listening...</span>
+    </div>
+
+    <!-- Snake Game -->
+    <div class="snake-overlay" id="snake-overlay">
+        <canvas id="snake-canvas" width="400" height="400" style="border:2px solid #7700FF;border-radius:8px;"></canvas>
+        <div class="snake-score">Score: <span id="snake-score">0</span></div>
+        <div style="color:#888;margin-top:10px;font-size:13px;">Arrow keys to move • ESC to exit</div>
+        <button onclick="closeSnake()" style="margin-top:20px;padding:10px 24px;background:var(--accent-purple);border:none;border-radius:20px;color:white;cursor:pointer;">Close Game</button>
+    </div>
+
+    <!-- Theme Picker -->
+    <div class="theme-picker" id="theme-picker">
+        <div style="font-size:13px;font-weight:600;margin-bottom:10px;">🎨 Accent Color</div>
+        <div class="theme-colors">
+            <div class="theme-color" style="background:#FF9D00" onclick="setAccent('#FF9D00')"></div>
+            <div class="theme-color" style="background:#FF006B" onclick="setAccent('#FF006B')"></div>
+            <div class="theme-color" style="background:#7700FF" onclick="setAccent('#7700FF')"></div>
+            <div class="theme-color" style="background:#0066FF" onclick="setAccent('#0066FF')"></div>
+            <div class="theme-color" style="background:#27AE60" onclick="setAccent('#27AE60')"></div>
+            <div class="theme-color" style="background:#E74C3C" onclick="setAccent('#E74C3C')"></div>
+            <div class="theme-color" style="background:#9B59B6" onclick="setAccent('#9B59B6')"></div>
+            <div class="theme-color" style="background:#1ABC9C" onclick="setAccent('#1ABC9C')"></div>
         </div>
     </div>
 
@@ -4772,6 +4879,248 @@
         // ============================================
         // INITIALIZE WIDGETS
         // ============================================
+        // ============================================
+        // BOOT SCREEN
+        // ============================================
+        const bootTexts = ['Initializing...', 'Loading modules...', 'Connecting to metaverse...', 'Decrypting files...', 'Almost ready...'];
+        function runBootSequence(callback) {
+            const bar = document.getElementById('boot-bar');
+            const text = document.getElementById('boot-text');
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) { progress = 100; clearInterval(interval); setTimeout(() => { document.getElementById('boot-screen').classList.add('hidden'); callback(); }, 300); }
+                bar.style.width = progress + '%';
+                text.textContent = bootTexts[Math.floor(progress / 25)] || 'Welcome!';
+            }, 200);
+        }
+
+        // ============================================
+        // VOICE COMMANDS
+        // ============================================
+        let recognition = null;
+        function initVoice() {
+            if (!('webkitSpeechRecognition' in window)) return;
+            recognition = new webkitSpeechRecognition();
+            recognition.continuous = false;
+            recognition.onstart = () => document.getElementById('voice-indicator').classList.add('active');
+            recognition.onend = () => document.getElementById('voice-indicator').classList.remove('active');
+            recognition.onresult = (e) => {
+                const cmd = e.results[0][0].transcript.toLowerCase();
+                handleVoiceCommand(cmd);
+            };
+        }
+        function handleVoiceCommand(cmd) {
+            showToast('info', 'Voice', `Heard: "${cmd}"`);
+            if (cmd.includes('search')) openCommandPalette();
+            else if (cmd.includes('dark') || cmd.includes('light')) toggleTheme();
+            else if (cmd.includes('matrix')) toggleMatrix();
+            else if (cmd.includes('zen')) toggleZenMode();
+            else if (cmd.includes('snow')) toggleSnow();
+            else if (cmd.includes('snake') || cmd.includes('game')) openSnake();
+        }
+        function startVoice() { if (recognition) recognition.start(); }
+
+        // ============================================
+        // SNOW EFFECT
+        // ============================================
+        let snowActive = false;
+        let snowInterval = null;
+        function toggleSnow() {
+            snowActive = !snowActive;
+            if (snowActive) {
+                snowInterval = setInterval(() => {
+                    const flake = document.createElement('div');
+                    flake.className = 'snowflake';
+                    flake.textContent = ['❄', '❅', '❆', '✻'][Math.floor(Math.random() * 4)];
+                    flake.style.left = Math.random() * 100 + 'vw';
+                    flake.style.fontSize = (10 + Math.random() * 15) + 'px';
+                    flake.style.animationDuration = (3 + Math.random() * 4) + 's';
+                    document.body.appendChild(flake);
+                    setTimeout(() => flake.remove(), 7000);
+                }, 100);
+                showToast('info', 'Snow On', 'Let it snow! ❄');
+            } else {
+                clearInterval(snowInterval);
+                document.querySelectorAll('.snowflake').forEach(f => f.remove());
+                showToast('info', 'Snow Off', '');
+            }
+            playSound('click');
+        }
+
+        // ============================================
+        // SCREEN SHAKE
+        // ============================================
+        function shakeScreen() {
+            document.body.classList.add('shake');
+            setTimeout(() => document.body.classList.remove('shake'), 300);
+        }
+
+        // ============================================
+        // SNAKE GAME
+        // ============================================
+        let snakeGame = null;
+        function openSnake() {
+            document.getElementById('snake-overlay').classList.add('show');
+            startSnake();
+            playSound('click');
+        }
+        function closeSnake() {
+            document.getElementById('snake-overlay').classList.remove('show');
+            if (snakeGame) { cancelAnimationFrame(snakeGame); snakeGame = null; }
+        }
+        function startSnake() {
+            const canvas = document.getElementById('snake-canvas');
+            const ctx = canvas.getContext('2d');
+            const size = 20;
+            let snake = [{x: 10, y: 10}];
+            let food = {x: 15, y: 15};
+            let dir = {x: 1, y: 0};
+            let score = 0;
+            document.getElementById('snake-score').textContent = score;
+
+            function draw() {
+                ctx.fillStyle = '#0a0a0a';
+                ctx.fillRect(0, 0, 400, 400);
+                ctx.fillStyle = '#27AE60';
+                snake.forEach(s => ctx.fillRect(s.x * size, s.y * size, size - 2, size - 2));
+                ctx.fillStyle = '#E74C3C';
+                ctx.fillRect(food.x * size, food.y * size, size - 2, size - 2);
+            }
+            function update() {
+                const head = {x: snake[0].x + dir.x, y: snake[0].y + dir.y};
+                if (head.x < 0 || head.x >= 20 || head.y < 0 || head.y >= 20 || snake.some(s => s.x === head.x && s.y === head.y)) {
+                    showToast('error', 'Game Over', `Score: ${score}`);
+                    closeSnake();
+                    return;
+                }
+                snake.unshift(head);
+                if (head.x === food.x && head.y === food.y) {
+                    score++;
+                    document.getElementById('snake-score').textContent = score;
+                    food = {x: Math.floor(Math.random() * 20), y: Math.floor(Math.random() * 20)};
+                    playSound('success');
+                } else { snake.pop(); }
+            }
+            function loop() {
+                update(); draw();
+                snakeGame = setTimeout(() => requestAnimationFrame(loop), 100);
+            }
+            document.onkeydown = (e) => {
+                if (e.key === 'ArrowUp' && dir.y !== 1) dir = {x: 0, y: -1};
+                if (e.key === 'ArrowDown' && dir.y !== -1) dir = {x: 0, y: 1};
+                if (e.key === 'ArrowLeft' && dir.x !== 1) dir = {x: -1, y: 0};
+                if (e.key === 'ArrowRight' && dir.x !== -1) dir = {x: 1, y: 0};
+                if (e.key === 'Escape') closeSnake();
+            };
+            loop();
+        }
+
+        // ============================================
+        // THEME PICKER
+        // ============================================
+        function toggleThemePicker() {
+            document.getElementById('theme-picker').classList.toggle('show');
+            playSound('click');
+        }
+        function setAccent(color) {
+            document.documentElement.style.setProperty('--accent-purple', color);
+            localStorage.setItem('blackroad_accent', color);
+            showToast('success', 'Theme Updated', '');
+            playSound('success');
+        }
+        function loadAccent() {
+            const saved = localStorage.getItem('blackroad_accent');
+            if (saved) document.documentElement.style.setProperty('--accent-purple', saved);
+        }
+
+        // ============================================
+        // WEATHER (Simulated)
+        // ============================================
+        const weathers = [
+            {icon: '☀️', temp: 78, desc: 'Sunny'},
+            {icon: '🌤️', temp: 72, desc: 'Partly Cloudy'},
+            {icon: '☁️', temp: 65, desc: 'Cloudy'},
+            {icon: '🌧️', temp: 58, desc: 'Rainy'},
+            {icon: '⛈️', temp: 55, desc: 'Thunderstorm'},
+            {icon: '❄️', temp: 32, desc: 'Snowy'},
+            {icon: '🌙', temp: 68, desc: 'Clear Night'}
+        ];
+        function updateWeather() {
+            const w = weathers[Math.floor(Math.random() * weathers.length)];
+            document.getElementById('weather-icon').textContent = w.icon;
+            document.getElementById('weather-temp').textContent = w.temp;
+            document.getElementById('weather-desc').textContent = w.desc;
+        }
+
+        // ============================================
+        // CRYPTO TICKER (Fake)
+        // ============================================
+        const cryptos = [
+            {icon: '₿', name: 'BTC', price: 43521},
+            {icon: 'Ξ', name: 'ETH', price: 2341},
+            {icon: '◎', name: 'SOL', price: 98},
+            {icon: '🔷', name: 'AVAX', price: 35}
+        ];
+        function updateCrypto() {
+            const list = document.getElementById('crypto-list');
+            list.innerHTML = cryptos.map(c => {
+                const change = (Math.random() * 10 - 5).toFixed(2);
+                const up = change >= 0;
+                return `<div class="crypto-item"><span class="crypto-icon">${c.icon}</span><span class="crypto-name">${c.name}</span><span class="crypto-price">$${(c.price + Math.random() * 100).toFixed(0)}</span><span class="crypto-change ${up ? 'up' : 'down'}">${up ? '+' : ''}${change}%</span></div>`;
+            }).join('');
+        }
+
+        // ============================================
+        // TYPING TEST
+        // ============================================
+        const typingPhrases = ['The quick brown fox jumps over the lazy dog', 'Pack my box with five dozen liquor jugs', 'How vexingly quick daft zebras jump', 'The five boxing wizards jump quickly'];
+        let typingActive = false, typingStart = 0, typingTarget = '';
+        document.getElementById('typing-prompt').onclick = startTypingTest;
+        function startTypingTest() {
+            if (typingActive) return;
+            typingActive = true;
+            typingTarget = typingPhrases[Math.floor(Math.random() * typingPhrases.length)];
+            document.getElementById('typing-prompt').textContent = typingTarget;
+            document.getElementById('typing-input').disabled = false;
+            document.getElementById('typing-input').value = '';
+            document.getElementById('typing-input').focus();
+            typingStart = Date.now();
+            let timeLeft = 30;
+            document.getElementById('time-left').textContent = timeLeft;
+            const timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('time-left').textContent = timeLeft;
+                if (timeLeft <= 0) { clearInterval(timer); endTypingTest(); }
+            }, 1000);
+        }
+        document.getElementById('typing-input').oninput = function() {
+            const typed = this.value;
+            const elapsed = (Date.now() - typingStart) / 60000;
+            const words = typed.trim().split(/\s+/).length;
+            document.getElementById('wpm').textContent = Math.round(words / elapsed) || 0;
+            let correct = 0;
+            for (let i = 0; i < typed.length; i++) { if (typed[i] === typingTarget[i]) correct++; }
+            document.getElementById('accuracy').textContent = Math.round((correct / typed.length) * 100) || 0;
+            if (typed === typingTarget) { endTypingTest(); showToast('success', 'Perfect!', 'You typed it correctly!'); }
+        };
+        function endTypingTest() {
+            typingActive = false;
+            document.getElementById('typing-input').disabled = true;
+            playSound('success');
+        }
+
+        // ============================================
+        // EXTRA KEYBOARD SHORTCUTS
+        // ============================================
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+            if (e.key === 'v' && !e.metaKey) startVoice();
+            if (e.key === 'w' && !e.metaKey) toggleSnow();
+            if (e.key === 'c' && !e.metaKey) toggleThemePicker();
+            if (e.key === 'g' && e.shiftKey) openSnake();
+        });
+
         function initWidgets() {
             renderCalendar();
             renderNotes();
@@ -4779,12 +5128,19 @@
             updateSystemStatus();
             setInterval(updateSystemStatus, 5000);
 
-            // New wild features
+            // Wild features
             initMatrix();
             updateStreak();
             renderQuote();
             renderPresence();
             setInterval(renderPresence, 30000);
+
+            // New wild features
+            initVoice();
+            loadAccent();
+            updateWeather();
+            updateCrypto();
+            setInterval(updateCrypto, 10000);
         }
 
         // ============================================
@@ -4804,32 +5160,35 @@
         // ============================================
         const session = checkAuth();
         if (session) {
-            document.getElementById('user-name').textContent = session.username;
-            document.getElementById('user-avatar').textContent = session.username.charAt(0).toUpperCase();
+            // Run boot sequence first, then initialize everything
+            runBootSequence(() => {
+                document.getElementById('user-name').textContent = session.username;
+                document.getElementById('user-avatar').textContent = session.username.charAt(0).toUpperCase();
 
-            // Initialize all systems
-            initTheme();
-            initSound();
-            initParticles();
-            init3DTilt();
-            initClock();
-            initScrollProgress();
-            initStatCounters();
-            initWidgets();
-            updateNotificationBadge();
-            startSessionMonitor();
-            renderFileGrid();
-            renderActivity();
-            checkAchievements();
+                // Initialize all systems
+                initTheme();
+                initSound();
+                initParticles();
+                init3DTilt();
+                initClock();
+                initScrollProgress();
+                initStatCounters();
+                initWidgets();
+                updateNotificationBadge();
+                startSessionMonitor();
+                renderFileGrid();
+                renderActivity();
+                checkAchievements();
 
-            // Show onboarding for first-time users
-            setTimeout(() => showOnboarding(), 500);
+                // Show onboarding for first-time users
+                setTimeout(() => showOnboarding(), 500);
 
-            // Welcome message
-            setTimeout(() => {
-                playSound('success');
-                showToast('success', `Welcome, ${session.username}!`, 'You have access to all BlackRoad files.');
-            }, 300);
+                // Welcome message
+                setTimeout(() => {
+                    playSound('success');
+                    showToast('success', `Welcome, ${session.username}!`, 'You have access to all BlackRoad files.');
+                }, 300);
+            });
         }
     </script>
 </body>
