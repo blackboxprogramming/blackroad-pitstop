@@ -541,11 +541,336 @@
             font-family: 'JetBrains Mono', monospace;
             margin: 0 2px;
         }
+
+        /* ============================================
+           TYPING ANIMATION
+           ============================================ */
+        .logo-text.typing {
+            overflow: hidden;
+            white-space: nowrap;
+            animation: typing 1.5s steps(7) forwards, gradientShift 3s ease infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        .logo-text::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            opacity: 0;
+        }
+
+        .logo-text.typing::after {
+            opacity: 1;
+        }
+
+        .logo-text.done::after {
+            opacity: 0;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* ============================================
+           SUCCESS OVERLAY
+           ============================================ */
+        .success-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-dark);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+
+        .success-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .success-icon {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            margin-bottom: 30px;
+            animation: successPop 0.5s ease;
+            box-shadow: 0 20px 60px rgba(255, 157, 0, 0.4);
+        }
+
+        @keyframes successPop {
+            0% { transform: scale(0); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+
+        .success-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .success-message {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 40px;
+        }
+
+        .success-loader {
+            width: 200px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .success-loader-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            animation: loadProgress 1.5s ease forwards;
+        }
+
+        @keyframes loadProgress {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* ============================================
+           LOGIN PARTICLES
+           ============================================ */
+        .login-particle-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .login-particle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            animation: loginParticle 15s infinite linear;
+        }
+
+        @keyframes loginParticle {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-100px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           REMEMBER ME CHECKBOX
+           ============================================ */
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 13px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            color: var(--text-secondary);
+        }
+
+        .remember-me input {
+            display: none;
+        }
+
+        .remember-checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--glass-border);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+        }
+
+        .remember-me:hover .remember-checkbox {
+            border-color: var(--accent-purple);
+        }
+
+        .remember-me input:checked + .remember-checkbox {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+        }
+
+        .remember-checkbox::after {
+            content: '✓';
+            color: white;
+            font-size: 12px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.2s ease;
+        }
+
+        .remember-me input:checked + .remember-checkbox::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .forgot-link {
+            color: var(--accent-purple);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .forgot-link:hover {
+            color: var(--accent-orange);
+        }
+
+        /* ============================================
+           ANIMATED GRADIENT BORDER
+           ============================================ */
+        .login-card {
+            position: relative;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg,
+                var(--accent-orange),
+                var(--accent-red),
+                var(--accent-purple),
+                var(--accent-blue),
+                var(--accent-orange));
+            background-size: 400% 400%;
+            border-radius: 26px;
+            z-index: -1;
+            animation: borderGradient 8s ease infinite;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-card:hover::before,
+        .login-card:focus-within::before {
+            opacity: 0.5;
+        }
+
+        @keyframes borderGradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* ============================================
+           PULSE EFFECT ON INFO CARDS
+           ============================================ */
+        .info-card {
+            transition: all 0.3s ease;
+        }
+
+        .info-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .info-icon {
+            animation: iconPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes iconPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ============================================
+           VERSION BADGE
+           ============================================ */
+        .version-badge {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 11px;
+            color: var(--text-secondary);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .version-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: statusPulse 2s infinite;
+        }
+
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
     </style>
 </head>
 <body>
     <!-- Skip Link for Accessibility -->
     <a href="#login-form" class="skip-link">Skip to login form</a>
+
+    <!-- Version Badge -->
+    <div class="version-badge">
+        <span class="version-dot"></span>
+        <span>v2.0 • All Systems Online</span>
+    </div>
+
+    <!-- Login Particles -->
+    <div class="login-particle-container" id="login-particles" aria-hidden="true"></div>
+
+    <!-- Success Overlay -->
+    <div class="success-overlay" id="success-overlay">
+        <div class="success-icon">✓</div>
+        <div class="success-title" id="success-title">Welcome Back!</div>
+        <div class="success-message" id="success-message">Preparing your dashboard...</div>
+        <div class="success-loader">
+            <div class="success-loader-bar"></div>
+        </div>
+    </div>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container" role="alert" aria-live="polite"></div>
@@ -610,6 +935,15 @@
                             👁️
                         </button>
                     </div>
+                </div>
+
+                <div class="form-options">
+                    <label class="remember-me">
+                        <input type="checkbox" id="remember-me" />
+                        <span class="remember-checkbox"></span>
+                        Remember me
+                    </label>
+                    <a href="#" class="forgot-link" onclick="showForgotPassword(event)">Forgot password?</a>
                 </div>
 
                 <button type="submit" class="submit-button" id="submit-button" aria-describedby="submit-status">
@@ -827,6 +1161,62 @@
         }
 
         // ============================================
+        // LOGIN PARTICLES
+        // ============================================
+        const particleContainer = document.getElementById('login-particles');
+        const colors = ['#FF9D00', '#FF006B', '#7700FF', '#0066FF'];
+        for (let i = 0; i < 20; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'login-particle';
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particle.style.animationDelay = `${Math.random() * 15}s`;
+            particle.style.animationDuration = `${10 + Math.random() * 10}s`;
+            particleContainer.appendChild(particle);
+        }
+
+        // ============================================
+        // TYPING ANIMATION
+        // ============================================
+        const logoText = document.querySelector('.logo-text');
+        logoText.classList.add('typing');
+        setTimeout(() => {
+            logoText.classList.remove('typing');
+            logoText.classList.add('done');
+        }, 1500);
+
+        // ============================================
+        // FORGOT PASSWORD
+        // ============================================
+        function showForgotPassword(e) {
+            e.preventDefault();
+            showToast('info', 'Password Reset', 'Contact support at blackroad.systems@gmail.com');
+        }
+
+        // ============================================
+        // REMEMBER ME
+        // ============================================
+        const rememberMeKey = 'blackroad_remember';
+        const rememberMeCheckbox = document.getElementById('remember-me');
+        const usernameInput = document.getElementById('username');
+
+        // Load remembered username
+        const rememberedUser = localStorage.getItem(rememberMeKey);
+        if (rememberedUser) {
+            usernameInput.value = rememberedUser;
+            rememberMeCheckbox.checked = true;
+        }
+
+        // ============================================
+        // SUCCESS OVERLAY
+        // ============================================
+        function showSuccessOverlay(username) {
+            const overlay = document.getElementById('success-overlay');
+            document.getElementById('success-title').textContent = `Welcome, ${username}!`;
+            overlay.classList.add('show');
+        }
+
+        // ============================================
         // AUTHENTICATION SYSTEM
         // ============================================
         const VALID_CREDENTIALS = {
@@ -888,15 +1278,23 @@
                 buttonText.textContent = 'Access Granted';
                 spinner.classList.add('hidden');
 
-                showToast('success', 'Welcome Back!', `Logging in as ${username}...`);
+                // Handle remember me
+                if (rememberMeCheckbox.checked) {
+                    localStorage.setItem(rememberMeKey, username);
+                } else {
+                    localStorage.removeItem(rememberMeKey);
+                }
 
                 // Create session
                 createSession(username);
 
-                // Redirect to dashboard
+                // Show success overlay
+                showSuccessOverlay(username);
+
+                // Redirect to dashboard after animation
                 setTimeout(() => {
                     window.location.href = 'dashboard.html';
-                }, 800);
+                }, 2000);
             } else {
                 // Failed login
                 const attemptData = recordFailedAttempt();
