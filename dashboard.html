@@ -2262,6 +2262,79 @@
                 display: none;
             }
         }
+
+        /* MATRIX RAIN */
+        .matrix-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; opacity: 0; transition: opacity 0.5s; pointer-events: none; }
+        .matrix-canvas.active { opacity: 0.15; }
+
+        /* CURSOR SPARKLE */
+        .sparkle { position: fixed; pointer-events: none; z-index: 9999; animation: sparkle-fade 0.6s ease-out forwards; }
+        @keyframes sparkle-fade { 0% { transform: scale(1) rotate(0deg); opacity: 1; } 100% { transform: scale(0) rotate(180deg); opacity: 0; } }
+
+        /* ZEN MODE */
+        body.zen-mode .header, body.zen-mode .widgets-sidebar, body.zen-mode .fab-container, body.zen-mode .shortcuts-panel, body.zen-mode .scroll-progress, body.zen-mode .activity-section, body.zen-mode .stats-bar { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+        body.zen-mode .container { max-width: 1000px; padding-top: 40px; }
+        .zen-indicator { position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: rgba(119, 0, 255, 0.2); border: 1px solid var(--accent-purple); padding: 10px 24px; border-radius: 30px; font-size: 13px; opacity: 0; visibility: hidden; transition: all 0.3s; z-index: 1000; }
+        body.zen-mode .zen-indicator { opacity: 1; visibility: visible; }
+
+        /* ONLINE PRESENCE */
+        .presence-indicator { display: flex; align-items: center; gap: 12px; padding: 12px 16px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; }
+        .presence-avatars { display: flex; }
+        .presence-avatar { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue)); border: 2px solid var(--bg-medium); margin-left: -8px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; }
+        .presence-avatar:first-child { margin-left: 0; }
+        .presence-count { font-size: 13px; color: var(--text-secondary); }
+        .presence-dot { width: 8px; height: 8px; border-radius: 50%; background: #27AE60; animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
+
+        /* AMBIENT SOUNDS */
+        .ambient-player { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; }
+        .ambient-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+        .ambient-title { font-weight: 600; font-size: 14px; }
+        .ambient-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+        .ambient-btn { aspect-ratio: 1; border-radius: 12px; background: var(--glass-bg); border: 1px solid var(--glass-border); font-size: 20px; cursor: pointer; transition: all 0.2s; }
+        .ambient-btn:hover { transform: scale(1.1); background: rgba(119, 0, 255, 0.1); }
+        .ambient-btn.active { background: rgba(119, 0, 255, 0.2); border-color: var(--accent-purple); box-shadow: 0 0 20px rgba(119, 0, 255, 0.3); }
+
+        /* STREAK */
+        .streak-badge { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #FF9D00, #FF6B00); padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; color: white; box-shadow: 0 4px 15px rgba(255, 157, 0, 0.3); }
+        .streak-fire { font-size: 16px; animation: fire-bounce 0.5s ease infinite alternate; }
+        @keyframes fire-bounce { from { transform: translateY(0); } to { transform: translateY(-2px); } }
+
+        /* QUOTE */
+        .quote-widget { background: linear-gradient(135deg, rgba(119, 0, 255, 0.1), rgba(0, 102, 255, 0.1)); border: 1px solid rgba(119, 0, 255, 0.2); border-radius: 16px; padding: 20px; position: relative; overflow: hidden; }
+        .quote-widget::before { content: '"'; position: absolute; top: -20px; left: 10px; font-size: 120px; color: rgba(119, 0, 255, 0.1); font-family: Georgia, serif; line-height: 1; }
+        .quote-text { font-size: 14px; line-height: 1.6; font-style: italic; position: relative; z-index: 1; }
+        .quote-author { font-size: 12px; color: var(--text-secondary); margin-top: 12px; text-align: right; }
+
+        /* TERMINAL */
+        .terminal-widget { background: #0d0d0d; border: 1px solid #333; border-radius: 12px; overflow: hidden; font-family: 'JetBrains Mono', monospace; }
+        .terminal-header { background: #1a1a1a; padding: 8px 12px; display: flex; align-items: center; gap: 8px; }
+        .terminal-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .terminal-dot.red { background: #FF5F56; }
+        .terminal-dot.yellow { background: #FFBD2E; }
+        .terminal-dot.green { background: #27C93F; }
+        .terminal-title { flex: 1; text-align: center; font-size: 12px; color: #666; }
+        .terminal-body { padding: 12px; max-height: 150px; overflow-y: auto; font-size: 12px; }
+        .terminal-line { margin-bottom: 4px; color: #0f0; }
+        .terminal-line.output { color: #888; }
+        .terminal-input-line { display: flex; align-items: center; gap: 8px; }
+        .terminal-input { flex: 1; background: transparent; border: none; color: #0f0; font-family: inherit; font-size: 12px; outline: none; }
+
+        /* REACTIONS */
+        .file-reactions { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+        .reaction-badge { display: flex; align-items: center; gap: 4px; padding: 4px 8px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 12px; font-size: 12px; cursor: pointer; transition: all 0.2s; }
+        .reaction-badge:hover, .reaction-badge.active { background: rgba(119, 0, 255, 0.2); border-color: var(--accent-purple); }
+        .add-reaction { width: 24px; height: 24px; border-radius: 50%; background: var(--glass-bg); border: 1px dashed var(--glass-border); display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 12px; }
+
+        /* KONAMI */
+        .konami-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.95); z-index: 10000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.5s; }
+        .konami-overlay.show { opacity: 1; visibility: visible; }
+        .konami-title { font-size: 60px; font-weight: 900; background: linear-gradient(45deg, #FF9D00, #FF006B, #7700FF, #0066FF, #27AE60); background-size: 400% 400%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: rainbow 2s linear infinite; }
+        @keyframes rainbow { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .konami-subtitle { font-size: 24px; color: var(--text-secondary); margin: 20px 0 30px; }
+        .konami-close { padding: 12px 30px; background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue)); border: none; border-radius: 30px; color: white; font-size: 16px; cursor: pointer; }
+        .disco-ball { font-size: 100px; animation: spin 3s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
@@ -2390,6 +2463,54 @@
             </div>
         </div>
 
+        <!-- Online Presence -->
+        <div class="presence-indicator">
+            <div class="presence-dot"></div>
+            <div class="presence-avatars" id="presence-avatars"></div>
+            <div class="presence-count" id="presence-count">3 online</div>
+        </div>
+
+        <!-- Daily Quote -->
+        <div class="quote-widget" id="quote-widget">
+            <div class="quote-text" id="quote-text">Loading inspiration...</div>
+            <div class="quote-author" id="quote-author"></div>
+        </div>
+
+        <!-- Ambient Sounds -->
+        <div class="ambient-player">
+            <div class="ambient-header">
+                <span class="ambient-title">🎧 Ambient</span>
+            </div>
+            <div class="ambient-grid">
+                <button class="ambient-btn" onclick="toggleAmbient('rain')" title="Rain">🌧️</button>
+                <button class="ambient-btn" onclick="toggleAmbient('fire')" title="Fire">🔥</button>
+                <button class="ambient-btn" onclick="toggleAmbient('waves')" title="Waves">🌊</button>
+                <button class="ambient-btn" onclick="toggleAmbient('forest')" title="Forest">🌲</button>
+                <button class="ambient-btn" onclick="toggleAmbient('coffee')" title="Coffee Shop">☕</button>
+                <button class="ambient-btn" onclick="toggleAmbient('space')" title="Space">🚀</button>
+                <button class="ambient-btn" onclick="toggleAmbient('wind')" title="Wind">💨</button>
+                <button class="ambient-btn" onclick="toggleAmbient('birds')" title="Birds">🐦</button>
+            </div>
+        </div>
+
+        <!-- Quick Terminal -->
+        <div class="terminal-widget">
+            <div class="terminal-header">
+                <div class="terminal-dot red"></div>
+                <div class="terminal-dot yellow"></div>
+                <div class="terminal-dot green"></div>
+                <div class="terminal-title">blackroad ~ terminal</div>
+            </div>
+            <div class="terminal-body" id="terminal-body">
+                <div class="terminal-line output">Welcome to BlackRoad OS v2.0</div>
+                <div class="terminal-line output">Type 'help' for commands</div>
+            </div>
+            <div class="terminal-input-line" style="padding: 0 12px 12px;">
+                <span style="color: #0f0;">$</span>
+                <input type="text" class="terminal-input" id="terminal-input" placeholder="Enter command...">
+            </div>
+        </div>
+
         <!-- Achievements -->
         <div class="sidebar-widget">
             <div class="widget-header">
@@ -2465,6 +2586,20 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Matrix Canvas -->
+    <canvas class="matrix-canvas" id="matrix-canvas"></canvas>
+
+    <!-- Zen Mode Indicator -->
+    <div class="zen-indicator" id="zen-indicator">🧘 Zen Mode — Press Z to exit</div>
+
+    <!-- Konami Code Overlay -->
+    <div class="konami-overlay" id="konami-overlay">
+        <div class="disco-ball">🪩</div>
+        <div class="konami-title">YOU FOUND IT!</div>
+        <div class="konami-subtitle">The secret Konami code Easter egg!</div>
+        <button class="konami-close" onclick="closeKonami()">Amazing! 🎉</button>
     </div>
 
     <!-- Particle Background -->
@@ -2606,6 +2741,10 @@
                 <span class="clock-icon">🕐</span>
                 <span class="clock-time" id="clock-time">00:00</span>
                 <span class="clock-date" id="clock-date">Jan 1</span>
+            </div>
+            <div class="streak-badge" id="streak-badge" title="Daily streak">
+                <span class="streak-fire">🔥</span>
+                <span id="streak-count">1</span> day streak
             </div>
             <button class="cmd-k-hint" onclick="openCommandPalette()" title="Open command palette">
                 <span>Search</span>
@@ -4344,6 +4483,293 @@
         });
 
         // ============================================
+        // MATRIX RAIN EFFECT
+        // ============================================
+        let matrixActive = false;
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+
+        function initMatrix() {
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+        }
+
+        function toggleMatrix() {
+            matrixActive = !matrixActive;
+            matrixCanvas.classList.toggle('active', matrixActive);
+            if (matrixActive) runMatrix();
+            showToast('info', matrixActive ? 'Matrix Mode On' : 'Matrix Mode Off', '');
+            playSound('click');
+        }
+
+        function runMatrix() {
+            if (!matrixActive) return;
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()';
+            const fontSize = 14;
+            const columns = matrixCanvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            function draw() {
+                if (!matrixActive) return;
+                matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+                matrixCtx.fillStyle = '#0F0';
+                matrixCtx.font = fontSize + 'px monospace';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = chars[Math.floor(Math.random() * chars.length)];
+                    matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+                requestAnimationFrame(draw);
+            }
+            draw();
+        }
+
+        window.addEventListener('resize', initMatrix);
+
+        // ============================================
+        // CURSOR SPARKLE TRAIL
+        // ============================================
+        let sparkleEnabled = false;
+
+        function toggleSparkle() {
+            sparkleEnabled = !sparkleEnabled;
+            showToast('info', sparkleEnabled ? 'Sparkle On ✨' : 'Sparkle Off', '');
+            playSound('click');
+        }
+
+        document.addEventListener('mousemove', (e) => {
+            if (!sparkleEnabled) return;
+            if (Math.random() > 0.7) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.textContent = ['✨', '⭐', '💫', '🌟'][Math.floor(Math.random() * 4)];
+                sparkle.style.left = e.clientX + 'px';
+                sparkle.style.top = e.clientY + 'px';
+                sparkle.style.fontSize = (10 + Math.random() * 10) + 'px';
+                document.body.appendChild(sparkle);
+                setTimeout(() => sparkle.remove(), 600);
+            }
+        });
+
+        // ============================================
+        // ZEN MODE
+        // ============================================
+        let zenMode = false;
+
+        function toggleZenMode() {
+            zenMode = !zenMode;
+            document.body.classList.toggle('zen-mode', zenMode);
+            playSound('click');
+            if (zenMode) {
+                showToast('info', 'Zen Mode', 'Press Z to exit');
+            }
+        }
+
+        // ============================================
+        // KONAMI CODE EASTER EGG
+        // ============================================
+        const konamiCode = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+        let konamiIndex = 0;
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === konamiCode[konamiIndex]) {
+                konamiIndex++;
+                if (konamiIndex === konamiCode.length) {
+                    triggerKonami();
+                    konamiIndex = 0;
+                }
+            } else {
+                konamiIndex = 0;
+            }
+
+            // Zen mode toggle
+            if (e.key === 'z' && !e.metaKey && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                toggleZenMode();
+            }
+
+            // Matrix toggle with M key
+            if (e.key === 'm' && !e.metaKey && !e.ctrlKey && e.target.tagName !== 'INPUT') {
+                toggleMatrix();
+            }
+        });
+
+        function triggerKonami() {
+            document.getElementById('konami-overlay').classList.add('show');
+            launchConfetti();
+            playSound('success');
+            unlockAchievement('konami_master');
+        }
+
+        function closeKonami() {
+            document.getElementById('konami-overlay').classList.remove('show');
+        }
+
+        // ============================================
+        // DAILY STREAK
+        // ============================================
+        const STREAK_KEY = 'blackroad_streak';
+
+        function getStreak() {
+            const data = localStorage.getItem(STREAK_KEY);
+            return data ? JSON.parse(data) : { count: 0, lastVisit: null };
+        }
+
+        function updateStreak() {
+            const streak = getStreak();
+            const today = new Date().toDateString();
+            const yesterday = new Date(Date.now() - 86400000).toDateString();
+
+            if (streak.lastVisit === today) {
+                // Already visited today
+            } else if (streak.lastVisit === yesterday) {
+                streak.count++;
+                streak.lastVisit = today;
+            } else {
+                streak.count = 1;
+                streak.lastVisit = today;
+            }
+
+            localStorage.setItem(STREAK_KEY, JSON.stringify(streak));
+            document.getElementById('streak-count').textContent = streak.count;
+
+            if (streak.count >= 7) unlockAchievement('weekly_warrior');
+        }
+
+        // ============================================
+        // DAILY QUOTE
+        // ============================================
+        const quotes = [
+            { text: "The only way to do great work is to love what you do.", author: "Steve Jobs" },
+            { text: "Innovation distinguishes between a leader and a follower.", author: "Steve Jobs" },
+            { text: "Stay hungry, stay foolish.", author: "Steve Jobs" },
+            { text: "Code is like humor. When you have to explain it, it's bad.", author: "Cory House" },
+            { text: "First, solve the problem. Then, write the code.", author: "John Johnson" },
+            { text: "Any fool can write code that a computer can understand.", author: "Martin Fowler" },
+            { text: "The best error message is the one that never shows up.", author: "Thomas Fuchs" },
+            { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
+            { text: "Make it work, make it right, make it fast.", author: "Kent Beck" },
+            { text: "The metaverse awaits those who dare to dream.", author: "BlackRoad OS" }
+        ];
+
+        function renderQuote() {
+            const dayIndex = new Date().getDate() % quotes.length;
+            const quote = quotes[dayIndex];
+            document.getElementById('quote-text').textContent = quote.text;
+            document.getElementById('quote-author').textContent = '— ' + quote.author;
+        }
+
+        // ============================================
+        // ONLINE PRESENCE (Simulated)
+        // ============================================
+        const fakeUsers = ['A', 'J', 'K', 'M', 'S', 'R', 'T', 'L'];
+
+        function renderPresence() {
+            const online = 2 + Math.floor(Math.random() * 4);
+            const avatars = document.getElementById('presence-avatars');
+            const shuffled = fakeUsers.sort(() => 0.5 - Math.random()).slice(0, online);
+
+            avatars.innerHTML = shuffled.map(u => `<div class="presence-avatar">${u}</div>`).join('');
+            document.getElementById('presence-count').textContent = `${online} online`;
+        }
+
+        // ============================================
+        // AMBIENT SOUNDS (Web Audio API)
+        // ============================================
+        let ambientCtx = null;
+        let ambientActive = null;
+        let ambientNodes = {};
+
+        function toggleAmbient(type) {
+            document.querySelectorAll('.ambient-btn').forEach(btn => btn.classList.remove('active'));
+
+            if (ambientActive === type) {
+                stopAmbient();
+                return;
+            }
+
+            stopAmbient();
+            ambientActive = type;
+            document.querySelector(`[onclick="toggleAmbient('${type}')"]`).classList.add('active');
+
+            if (!ambientCtx) ambientCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+            // Generate ambient noise
+            const bufferSize = 2 * ambientCtx.sampleRate;
+            const buffer = ambientCtx.createBuffer(1, bufferSize, ambientCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+
+            const source = ambientCtx.createBufferSource();
+            source.buffer = buffer;
+            source.loop = true;
+
+            const filter = ambientCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.value = type === 'rain' ? 800 : type === 'waves' ? 400 : type === 'wind' ? 600 : 1000;
+
+            const gain = ambientCtx.createGain();
+            gain.gain.value = 0.1;
+
+            source.connect(filter);
+            filter.connect(gain);
+            gain.connect(ambientCtx.destination);
+            source.start();
+
+            ambientNodes = { source, filter, gain };
+            showToast('info', 'Now Playing', type.charAt(0).toUpperCase() + type.slice(1) + ' sounds');
+        }
+
+        function stopAmbient() {
+            if (ambientNodes.source) {
+                ambientNodes.source.stop();
+                ambientNodes = {};
+            }
+            ambientActive = null;
+        }
+
+        // ============================================
+        // QUICK TERMINAL
+        // ============================================
+        const terminalCommands = {
+            help: 'Available: help, clear, date, files, streak, matrix, zen, sparkle, about',
+            clear: () => { document.getElementById('terminal-body').innerHTML = ''; return ''; },
+            date: () => new Date().toLocaleString(),
+            files: () => `${FILES_DB.length} files in vault`,
+            streak: () => `🔥 ${getStreak().count} day streak`,
+            matrix: () => { toggleMatrix(); return 'Matrix toggled'; },
+            zen: () => { toggleZenMode(); return 'Zen mode toggled'; },
+            sparkle: () => { toggleSparkle(); return 'Sparkle toggled'; },
+            about: 'BlackRoad OS v2.0 - Secure Metaverse Gateway',
+            sudo: 'Nice try 😏',
+            hack: 'Access denied. Just kidding, there is nothing to hack!',
+            hello: 'Hello, operator! 👋',
+            exit: 'You cannot escape the metaverse...'
+        };
+
+        document.getElementById('terminal-input').addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter') return;
+            const input = e.target.value.trim().toLowerCase();
+            if (!input) return;
+
+            const body = document.getElementById('terminal-body');
+            body.innerHTML += `<div class="terminal-line">$ ${input}</div>`;
+
+            let output = terminalCommands[input];
+            if (typeof output === 'function') output = output();
+            if (output === undefined) output = `Command not found: ${input}`;
+            if (output) body.innerHTML += `<div class="terminal-line output">${output}</div>`;
+
+            e.target.value = '';
+            body.scrollTop = body.scrollHeight;
+        });
+
+        // ============================================
         // INITIALIZE WIDGETS
         // ============================================
         function initWidgets() {
@@ -4352,6 +4778,13 @@
             renderAchievements();
             updateSystemStatus();
             setInterval(updateSystemStatus, 5000);
+
+            // New wild features
+            initMatrix();
+            updateStreak();
+            renderQuote();
+            renderPresence();
+            setInterval(renderPresence, 30000);
         }
 
         // ============================================
