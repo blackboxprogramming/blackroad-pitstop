@@ -2373,6 +2373,57 @@
         .crypto-change { font-size: 9px; padding: 2px 4px; border-radius: 3px; }
         .crypto-change.up { background: rgba(39,174,96,0.2); color: #27AE60; }
         .crypto-change.down { background: rgba(231,76,60,0.2); color: #E74C3C; }
+        /* POMODORO */ .pomodoro-widget { background: linear-gradient(135deg, #c0392b22, #e74c3c22); border: 1px solid rgba(231,76,60,0.3); border-radius: 16px; padding: 16px; text-align: center; }
+        .pomodoro-time { font-size: 36px; font-weight: 900; font-family: 'JetBrains Mono', monospace; margin: 10px 0; }
+        .pomodoro-label { font-size: 11px; color: var(--text-secondary); margin-bottom: 10px; }
+        .pomodoro-btns { display: flex; gap: 8px; justify-content: center; }
+        .pomodoro-btn { padding: 6px 14px; border: none; border-radius: 8px; cursor: pointer; font-size: 12px; transition: all 0.2s; }
+        .pomodoro-btn.start { background: #27AE60; color: white; }
+        .pomodoro-btn.pause { background: #F39C12; color: white; }
+        .pomodoro-btn.reset { background: #333; color: white; }
+        /* CRT */ body.crt::before { content: ''; position: fixed; inset: 0; background: linear-gradient(transparent 50%, rgba(0,0,0,0.1) 50%); background-size: 100% 4px; pointer-events: none; z-index: 99999; animation: scanline 10s linear infinite; }
+        body.crt::after { content: ''; position: fixed; inset: 0; background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.3) 100%); pointer-events: none; z-index: 99998; }
+        @keyframes scanline { 0% { background-position: 0 0; } 100% { background-position: 0 100%; } }
+        /* FIREWORKS */ .firework { position: fixed; pointer-events: none; z-index: 99997; }
+        .firework-particle { position: absolute; width: 6px; height: 6px; border-radius: 50%; animation: explode 1s ease-out forwards; }
+        @keyframes explode { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--tx), var(--ty)) scale(0); opacity: 0; } }
+        /* MEMORY GAME */ .memory-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 15000; display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .memory-overlay.show { opacity: 1; visibility: visible; }
+        .memory-grid { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; }
+        .memory-card { width: 70px; height: 70px; background: linear-gradient(135deg, #7700FF, #0066FF); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 28px; transition: all 0.3s; transform-style: preserve-3d; }
+        .memory-card.flipped { transform: rotateY(180deg); background: #1a1a1a; }
+        .memory-card .front { backface-visibility: hidden; } .memory-card .back { backface-visibility: hidden; transform: rotateY(180deg); }
+        .memory-stats { display: flex; gap: 30px; margin: 20px 0; color: white; font-size: 18px; }
+        /* LIVE CURSORS */ .fake-cursor { position: fixed; pointer-events: none; z-index: 9999; display: flex; flex-direction: column; align-items: flex-start; transition: left 0.5s ease, top 0.5s ease; }
+        .fake-cursor svg { width: 20px; height: 20px; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3)); }
+        .cursor-name { font-size: 10px; padding: 2px 6px; border-radius: 4px; color: white; margin-left: 12px; white-space: nowrap; }
+        /* QR MODAL */ .qr-modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 10000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .qr-modal.show { opacity: 1; visibility: visible; }
+        .qr-content { background: white; padding: 30px; border-radius: 20px; text-align: center; }
+        .qr-code { width: 200px; height: 200px; background: #f0f0f0; margin: 20px auto; display: flex; align-items: center; justify-content: center; }
+        .qr-title { color: #333; font-size: 18px; margin-bottom: 10px; }
+        /* GRAVITY */ body.gravity .file-card { animation: fall 2s ease-in forwards; animation-delay: var(--delay); }
+        @keyframes fall { 0% { transform: translateY(0) rotate(0); } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        /* NEON */ body.neon * { text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 20px currentColor !important; }
+        body.neon .file-card, body.neon .widget-card { box-shadow: 0 0 10px var(--accent-purple), 0 0 20px var(--accent-purple), 0 0 40px var(--accent-purple) !important; }
+        body.neon { animation: neon-pulse 2s ease-in-out infinite; }
+        @keyframes neon-pulse { 0%, 100% { filter: brightness(1); } 50% { filter: brightness(1.2); } }
+        /* AI CHAT */ .ai-chat { position: fixed; bottom: 20px; right: 20px; width: 320px; background: var(--bg-medium); border: 1px solid var(--glass-border); border-radius: 20px; overflow: hidden; z-index: 1000; transform: translateY(calc(100% + 20px)); transition: all 0.3s; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        .ai-chat.show { transform: translateY(0); }
+        .ai-chat-header { background: linear-gradient(135deg, #7700FF, #0066FF); padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+        .ai-chat-title { display: flex; align-items: center; gap: 10px; font-weight: 600; }
+        .ai-online { width: 8px; height: 8px; background: #27AE60; border-radius: 50%; animation: pulse 2s infinite; }
+        .ai-chat-close { background: none; border: none; color: white; cursor: pointer; font-size: 18px; }
+        .ai-chat-messages { height: 280px; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
+        .ai-message { max-width: 85%; padding: 10px 14px; border-radius: 14px; font-size: 13px; line-height: 1.4; }
+        .ai-message.bot { background: var(--glass-bg); border: 1px solid var(--glass-border); align-self: flex-start; border-bottom-left-radius: 4px; }
+        .ai-message.user { background: linear-gradient(135deg, #7700FF, #0066FF); align-self: flex-end; border-bottom-right-radius: 4px; }
+        .ai-chat-input { display: flex; padding: 10px; gap: 8px; border-top: 1px solid var(--glass-border); }
+        .ai-chat-input input { flex: 1; padding: 10px 14px; background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: 20px; color: white; font-size: 13px; }
+        .ai-chat-input button { width: 38px; height: 38px; background: linear-gradient(135deg, #7700FF, #0066FF); border: none; border-radius: 50%; cursor: pointer; color: white; font-size: 16px; }
+        .ai-toggle { position: fixed; bottom: 20px; right: 20px; width: 56px; height: 56px; background: linear-gradient(135deg, #7700FF, #0066FF); border: none; border-radius: 50%; cursor: pointer; color: white; font-size: 24px; z-index: 999; box-shadow: 0 4px 20px rgba(119,0,255,0.4); transition: all 0.3s; }
+        .ai-toggle:hover { transform: scale(1.1); }
+        .ai-toggle.hidden { opacity: 0; pointer-events: none; }
     </style>
 </head>
 <body>
@@ -2406,6 +2457,10 @@
         <div class="context-menu-item" data-action="share">
             <span class="context-menu-icon">🔗</span>
             <span>Copy Link</span>
+        </div>
+        <div class="context-menu-item" data-action="qr">
+            <span class="context-menu-icon">📱</span>
+            <span>QR Code</span>
         </div>
         <div class="context-menu-divider"></div>
         <div class="context-menu-item" data-action="info">
@@ -2525,6 +2580,17 @@
                 <div class="typing-stat"><div class="typing-stat-value" id="wpm">0</div><div class="typing-stat-label">WPM</div></div>
                 <div class="typing-stat"><div class="typing-stat-value" id="accuracy">0</div><div class="typing-stat-label">ACC%</div></div>
                 <div class="typing-stat"><div class="typing-stat-value" id="time-left">30</div><div class="typing-stat-label">SEC</div></div>
+            </div>
+        </div>
+
+        <!-- Pomodoro Timer -->
+        <div class="pomodoro-widget">
+            <div style="font-size:12px;font-weight:600;">🍅 Pomodoro</div>
+            <div class="pomodoro-label" id="pomo-label">Work Session</div>
+            <div class="pomodoro-time" id="pomo-time">25:00</div>
+            <div class="pomodoro-btns">
+                <button class="pomodoro-btn start" id="pomo-start" onclick="togglePomodoro()">Start</button>
+                <button class="pomodoro-btn reset" onclick="resetPomodoro()">Reset</button>
             </div>
         </div>
 
@@ -2708,6 +2774,46 @@
         <div class="konami-subtitle">The secret Konami code Easter egg!</div>
         <button class="konami-close" onclick="closeKonami()">Amazing! 🎉</button>
     </div>
+
+    <!-- Memory Game -->
+    <div class="memory-overlay" id="memory-overlay">
+        <h2 style="color:white;margin-bottom:10px;">🧠 Memory Match</h2>
+        <div class="memory-stats">
+            <span>Moves: <strong id="memory-moves">0</strong></span>
+            <span>Matches: <strong id="memory-matches">0</strong>/8</span>
+        </div>
+        <div class="memory-grid" id="memory-grid"></div>
+        <button onclick="closeMemory()" style="margin-top:20px;padding:10px 24px;background:var(--accent-purple);border:none;border-radius:20px;color:white;cursor:pointer;">Close Game</button>
+    </div>
+
+    <!-- QR Modal -->
+    <div class="qr-modal" id="qr-modal" onclick="closeQR()">
+        <div class="qr-content" onclick="event.stopPropagation()">
+            <h3 class="qr-title" id="qr-title">File QR Code</h3>
+            <div class="qr-code" id="qr-code"></div>
+            <p style="color:#666;font-size:12px;">Scan to share this file</p>
+            <button onclick="closeQR()" style="margin-top:15px;padding:8px 20px;background:#333;color:white;border:none;border-radius:8px;cursor:pointer;">Close</button>
+        </div>
+    </div>
+
+    <!-- AI Chat -->
+    <div class="ai-chat" id="ai-chat">
+        <div class="ai-chat-header">
+            <div class="ai-chat-title"><div class="ai-online"></div> Pitstop AI</div>
+            <button class="ai-chat-close" onclick="toggleAI()">✕</button>
+        </div>
+        <div class="ai-chat-messages" id="ai-messages">
+            <div class="ai-message bot">Hey! I'm your Pitstop AI assistant. Ask me anything about your files or dashboard! 🤖</div>
+        </div>
+        <div class="ai-chat-input">
+            <input type="text" id="ai-input" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendAI()">
+            <button onclick="sendAI()">➤</button>
+        </div>
+    </div>
+    <button class="ai-toggle" id="ai-toggle" onclick="toggleAI()">🤖</button>
+
+    <!-- Fake Cursors Container -->
+    <div id="fake-cursors"></div>
 
     <!-- Particle Background -->
     <div class="particle-bg" id="particle-bg" aria-hidden="true"></div>
@@ -4020,6 +4126,9 @@
                     navigator.clipboard.writeText(shareUrl);
                     showToast('success', 'Link Copied!', 'Share link copied to clipboard');
                     break;
+                case 'qr':
+                    showQR(file.name);
+                    break;
                 case 'info':
                     showToast('info', file.name, `${file.lines.toLocaleString()} lines • ${file.category.toUpperCase()} • ${file.desc}`);
                     break;
@@ -4917,7 +5026,14 @@
             else if (cmd.includes('matrix')) toggleMatrix();
             else if (cmd.includes('zen')) toggleZenMode();
             else if (cmd.includes('snow')) toggleSnow();
-            else if (cmd.includes('snake') || cmd.includes('game')) openSnake();
+            else if (cmd.includes('snake')) openSnake();
+            else if (cmd.includes('memory')) openMemory();
+            else if (cmd.includes('crt') || cmd.includes('retro')) toggleCRT();
+            else if (cmd.includes('neon') || cmd.includes('glow')) toggleNeon();
+            else if (cmd.includes('firework')) launchFireworks();
+            else if (cmd.includes('gravity') || cmd.includes('fall')) triggerGravity();
+            else if (cmd.includes('pomodoro') || cmd.includes('timer')) togglePomodoro();
+            else if (cmd.includes('chat') || cmd.includes('ai') || cmd.includes('help')) toggleAI();
         }
         function startVoice() { if (recognition) recognition.start(); }
 
@@ -5119,7 +5235,286 @@
             if (e.key === 'w' && !e.metaKey) toggleSnow();
             if (e.key === 'c' && !e.metaKey) toggleThemePicker();
             if (e.key === 'g' && e.shiftKey) openSnake();
+            if (e.key === 'm' && e.shiftKey) openMemory();
+            if (e.key === 'r' && !e.metaKey) toggleCRT();
+            if (e.key === 'n' && !e.metaKey) toggleNeon();
+            if (e.key === 'p' && !e.metaKey) togglePomodoro();
         });
+
+        // ============================================
+        // POMODORO TIMER
+        // ============================================
+        let pomoRunning = false, pomoTime = 1500, pomoInterval = null, pomoIsWork = true;
+        function updatePomoDisplay() {
+            const m = Math.floor(pomoTime / 60);
+            const s = pomoTime % 60;
+            document.getElementById('pomo-time').textContent = `${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
+        }
+        function togglePomodoro() {
+            if (pomoRunning) {
+                clearInterval(pomoInterval);
+                document.getElementById('pomo-start').textContent = 'Resume';
+                document.getElementById('pomo-start').classList.remove('pause');
+                document.getElementById('pomo-start').classList.add('start');
+            } else {
+                pomoInterval = setInterval(() => {
+                    pomoTime--;
+                    updatePomoDisplay();
+                    if (pomoTime <= 0) {
+                        clearInterval(pomoInterval);
+                        pomoRunning = false;
+                        launchFireworks();
+                        speak(pomoIsWork ? 'Break time!' : 'Back to work!');
+                        pomoIsWork = !pomoIsWork;
+                        pomoTime = pomoIsWork ? 1500 : 300;
+                        document.getElementById('pomo-label').textContent = pomoIsWork ? 'Work Session' : 'Break Time';
+                        updatePomoDisplay();
+                        document.getElementById('pomo-start').textContent = 'Start';
+                    }
+                }, 1000);
+                document.getElementById('pomo-start').textContent = 'Pause';
+                document.getElementById('pomo-start').classList.remove('start');
+                document.getElementById('pomo-start').classList.add('pause');
+            }
+            pomoRunning = !pomoRunning;
+        }
+        function resetPomodoro() {
+            clearInterval(pomoInterval);
+            pomoRunning = false;
+            pomoIsWork = true;
+            pomoTime = 1500;
+            updatePomoDisplay();
+            document.getElementById('pomo-label').textContent = 'Work Session';
+            document.getElementById('pomo-start').textContent = 'Start';
+            document.getElementById('pomo-start').classList.remove('pause');
+            document.getElementById('pomo-start').classList.add('start');
+        }
+
+        // ============================================
+        // TEXT-TO-SPEECH
+        // ============================================
+        function speak(text) {
+            if ('speechSynthesis' in window) {
+                const utter = new SpeechSynthesisUtterance(text);
+                utter.rate = 1; utter.pitch = 1;
+                speechSynthesis.speak(utter);
+            }
+        }
+
+        // ============================================
+        // CRT RETRO EFFECT
+        // ============================================
+        let crtActive = false;
+        function toggleCRT() {
+            crtActive = !crtActive;
+            document.body.classList.toggle('crt', crtActive);
+            showToast('info', 'CRT Mode', crtActive ? 'Retro vibes activated!' : 'CRT disabled');
+        }
+
+        // ============================================
+        // NEON GLOW MODE
+        // ============================================
+        let neonActive = false;
+        function toggleNeon() {
+            neonActive = !neonActive;
+            document.body.classList.toggle('neon', neonActive);
+            showToast('info', 'Neon Mode', neonActive ? 'MAXIMUM GLOW!' : 'Neon disabled');
+        }
+
+        // ============================================
+        // GRAVITY MODE
+        // ============================================
+        function triggerGravity() {
+            const cards = document.querySelectorAll('.file-card');
+            cards.forEach((card, i) => {
+                card.style.setProperty('--delay', (i * 0.1) + 's');
+            });
+            document.body.classList.add('gravity');
+            showToast('warning', 'Gravity!', 'Everything is falling!');
+            setTimeout(() => {
+                document.body.classList.remove('gravity');
+                cards.forEach(card => card.style.removeProperty('--delay'));
+            }, 4000);
+        }
+
+        // ============================================
+        // FIREWORKS
+        // ============================================
+        function launchFireworks() {
+            const colors = ['#FF9D00', '#FF006B', '#7700FF', '#0066FF', '#27AE60', '#E74C3C'];
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => {
+                    const x = Math.random() * window.innerWidth;
+                    const y = Math.random() * window.innerHeight * 0.5;
+                    createFirework(x, y, colors);
+                }, i * 300);
+            }
+        }
+        function createFirework(x, y, colors) {
+            const container = document.createElement('div');
+            container.className = 'firework';
+            container.style.left = x + 'px';
+            container.style.top = y + 'px';
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'firework-particle';
+                const angle = (i / 30) * Math.PI * 2;
+                const dist = 80 + Math.random() * 60;
+                particle.style.setProperty('--tx', Math.cos(angle) * dist + 'px');
+                particle.style.setProperty('--ty', Math.sin(angle) * dist + 'px');
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                container.appendChild(particle);
+            }
+            document.body.appendChild(container);
+            setTimeout(() => container.remove(), 1500);
+        }
+
+        // ============================================
+        // MEMORY GAME
+        // ============================================
+        const memoryEmojis = ['🚀', '⭐', '🔥', '💎', '🎮', '🎨', '🎵', '🌈'];
+        let memoryCards = [], memoryFlipped = [], memoryMoves = 0, memoryMatches = 0;
+        function openMemory() {
+            document.getElementById('memory-overlay').classList.add('show');
+            initMemoryGame();
+        }
+        function closeMemory() {
+            document.getElementById('memory-overlay').classList.remove('show');
+        }
+        function initMemoryGame() {
+            memoryCards = [...memoryEmojis, ...memoryEmojis].sort(() => Math.random() - 0.5);
+            memoryFlipped = [];
+            memoryMoves = 0;
+            memoryMatches = 0;
+            document.getElementById('memory-moves').textContent = '0';
+            document.getElementById('memory-matches').textContent = '0';
+            const grid = document.getElementById('memory-grid');
+            grid.innerHTML = memoryCards.map((emoji, i) =>
+                `<div class="memory-card" data-index="${i}" onclick="flipCard(this)">${emoji}</div>`
+            ).join('');
+            document.querySelectorAll('.memory-card').forEach(c => c.style.color = 'transparent');
+        }
+        function flipCard(card) {
+            if (memoryFlipped.length >= 2 || card.classList.contains('flipped') || card.classList.contains('matched')) return;
+            card.style.color = 'white';
+            card.classList.add('flipped');
+            memoryFlipped.push(card);
+            if (memoryFlipped.length === 2) {
+                memoryMoves++;
+                document.getElementById('memory-moves').textContent = memoryMoves;
+                const [a, b] = memoryFlipped;
+                if (a.textContent === b.textContent) {
+                    a.classList.add('matched');
+                    b.classList.add('matched');
+                    memoryMatches++;
+                    document.getElementById('memory-matches').textContent = memoryMatches;
+                    memoryFlipped = [];
+                    if (memoryMatches === 8) {
+                        setTimeout(() => {
+                            launchFireworks();
+                            speak('Congratulations! You won!');
+                            showToast('success', 'Memory Master!', `Completed in ${memoryMoves} moves!`);
+                        }, 500);
+                    }
+                } else {
+                    setTimeout(() => {
+                        a.style.color = 'transparent';
+                        b.style.color = 'transparent';
+                        a.classList.remove('flipped');
+                        b.classList.remove('flipped');
+                        memoryFlipped = [];
+                    }, 800);
+                }
+            }
+        }
+
+        // ============================================
+        // FAKE COLLABORATIVE CURSORS
+        // ============================================
+        const fakeUsers = [
+            {name: 'Sarah', color: '#FF006B'},
+            {name: 'Jake', color: '#0066FF'},
+            {name: 'Alex', color: '#27AE60'}
+        ];
+        function initFakeCursors() {
+            const container = document.getElementById('fake-cursors');
+            fakeUsers.forEach((user, i) => {
+                const cursor = document.createElement('div');
+                cursor.className = 'fake-cursor';
+                cursor.id = `cursor-${i}`;
+                cursor.innerHTML = `<svg viewBox="0 0 24 24" fill="${user.color}"><path d="M4 4l16 12-6.5 1.5L12 24l-2-8L4 4z"/></svg><span class="cursor-name" style="background:${user.color}">${user.name}</span>`;
+                cursor.style.left = Math.random() * window.innerWidth + 'px';
+                cursor.style.top = Math.random() * window.innerHeight + 'px';
+                container.appendChild(cursor);
+            });
+            setInterval(moveFakeCursors, 2000);
+        }
+        function moveFakeCursors() {
+            fakeUsers.forEach((user, i) => {
+                const cursor = document.getElementById(`cursor-${i}`);
+                if (cursor) {
+                    cursor.style.left = (Math.random() * (window.innerWidth - 100)) + 'px';
+                    cursor.style.top = (Math.random() * (window.innerHeight - 100)) + 'px';
+                }
+            });
+        }
+
+        // ============================================
+        // QR CODE GENERATOR (Simple visual fake)
+        // ============================================
+        function showQR(fileName) {
+            document.getElementById('qr-title').textContent = fileName || 'File QR Code';
+            const qr = document.getElementById('qr-code');
+            // Generate fake QR pattern
+            let html = '<div style="display:grid;grid-template-columns:repeat(15,12px);gap:1px;">';
+            for (let i = 0; i < 225; i++) {
+                const black = Math.random() > 0.5 || i < 45 || i > 180 || i % 15 < 3 || i % 15 > 11;
+                html += `<div style="width:12px;height:12px;background:${black ? '#000' : '#fff'}"></div>`;
+            }
+            html += '</div>';
+            qr.innerHTML = html;
+            document.getElementById('qr-modal').classList.add('show');
+        }
+        function closeQR() {
+            document.getElementById('qr-modal').classList.remove('show');
+        }
+
+        // ============================================
+        // AI CHAT ASSISTANT
+        // ============================================
+        let aiChatOpen = false;
+        const aiResponses = [
+            "I found {count} files matching your criteria!",
+            "Your dashboard is looking great today! 🚀",
+            "Need help? Try using keyboard shortcuts - press ? to see them all!",
+            "Pro tip: You can drag and drop files to organize them!",
+            "The weather looks nice for some coding today! ☀️",
+            "Have you tried the Pomodoro timer? It's great for focus!",
+            "I've analyzed your files - everything looks secure! 🔒",
+            "Your streak is impressive! Keep it up! 🔥",
+            "Try saying 'Hey Pitstop' to use voice commands!",
+            "Did you know you can play Snake? Press Shift+G!"
+        ];
+        function toggleAI() {
+            aiChatOpen = !aiChatOpen;
+            document.getElementById('ai-chat').classList.toggle('show', aiChatOpen);
+            document.getElementById('ai-toggle').classList.toggle('hidden', aiChatOpen);
+        }
+        function sendAI() {
+            const input = document.getElementById('ai-input');
+            const msg = input.value.trim();
+            if (!msg) return;
+            const messages = document.getElementById('ai-messages');
+            messages.innerHTML += `<div class="ai-message user">${msg}</div>`;
+            input.value = '';
+            setTimeout(() => {
+                let response = aiResponses[Math.floor(Math.random() * aiResponses.length)];
+                response = response.replace('{count}', Math.floor(Math.random() * 10 + 1));
+                messages.innerHTML += `<div class="ai-message bot">${response}</div>`;
+                messages.scrollTop = messages.scrollHeight;
+            }, 500 + Math.random() * 1000);
+            messages.scrollTop = messages.scrollHeight;
+        }
 
         function initWidgets() {
             renderCalendar();
@@ -5141,6 +5536,10 @@
             updateWeather();
             updateCrypto();
             setInterval(updateCrypto, 10000);
+
+            // Ultra wild features
+            initFakeCursors();
+            updatePomoDisplay();
         }
 
         // ============================================
