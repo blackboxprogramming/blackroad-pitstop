@@ -1791,6 +1791,477 @@
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ============================================
+           MULTI-SELECT & BULK ACTIONS
+           ============================================ */
+        .file-card.selectable {
+            cursor: pointer;
+        }
+
+        .file-card.selected {
+            border-color: var(--accent-purple);
+            background: rgba(119, 0, 255, 0.1);
+        }
+
+        .file-card .select-checkbox {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            width: 22px;
+            height: 22px;
+            border-radius: 6px;
+            border: 2px solid var(--glass-border);
+            background: var(--bg-medium);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            color: white;
+            transition: all 0.2s;
+        }
+
+        .select-mode .file-card .select-checkbox {
+            display: flex;
+        }
+
+        .file-card.selected .select-checkbox {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+        }
+
+        .bulk-actions {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 16px 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .bulk-actions.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateX(-50%) translateY(0);
+        }
+
+        .bulk-count {
+            font-weight: 600;
+            color: var(--accent-purple);
+        }
+
+        .bulk-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 13px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .bulk-btn:hover {
+            background: var(--glass-bg);
+        }
+
+        .bulk-btn.danger:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+            color: var(--error);
+        }
+
+        /* ============================================
+           MINI CALENDAR
+           ============================================ */
+        .sidebar-widget {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .widget-title {
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            text-align: center;
+        }
+
+        .calendar-day-name {
+            font-size: 10px;
+            color: var(--text-secondary);
+            padding: 4px;
+            font-weight: 500;
+        }
+
+        .calendar-day {
+            padding: 8px 4px;
+            font-size: 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .calendar-day:hover {
+            background: var(--glass-bg);
+        }
+
+        .calendar-day.today {
+            background: var(--accent-purple);
+            color: white;
+            font-weight: 600;
+        }
+
+        .calendar-day.other-month {
+            color: var(--text-secondary);
+            opacity: 0.5;
+        }
+
+        /* ============================================
+           QUICK NOTES
+           ============================================ */
+        .notes-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .note-item {
+            background: rgba(255, 200, 0, 0.1);
+            border-left: 3px solid var(--accent-orange);
+            padding: 12px;
+            border-radius: 0 8px 8px 0;
+            font-size: 13px;
+            position: relative;
+        }
+
+        .note-delete {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: none;
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .note-item:hover .note-delete {
+            opacity: 1;
+        }
+
+        .note-input-wrapper {
+            display: flex;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .note-input {
+            flex: 1;
+            padding: 10px 14px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 13px;
+        }
+
+        .note-add-btn {
+            padding: 10px 16px;
+            background: var(--accent-orange);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .note-add-btn:hover {
+            background: #e68a00;
+        }
+
+        /* ============================================
+           SYSTEM STATUS
+           ============================================ */
+        .status-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .status-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            background: var(--glass-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+        }
+
+        .status-info {
+            flex: 1;
+        }
+
+        .status-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .status-bar {
+            height: 4px;
+            background: var(--glass-bg);
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+
+        .status-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 0.5s ease;
+        }
+
+        .status-fill.low { background: #27AE60; }
+        .status-fill.medium { background: #F39C12; }
+        .status-fill.high { background: #E74C3C; }
+
+        .status-value {
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 40px;
+            text-align: right;
+        }
+
+        /* ============================================
+           ACHIEVEMENTS
+           ============================================ */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .achievement {
+            aspect-ratio: 1;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .achievement:hover {
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        .achievement.locked {
+            opacity: 0.4;
+            filter: grayscale(1);
+        }
+
+        .achievement.unlocked {
+            background: linear-gradient(135deg, rgba(255, 157, 0, 0.2), rgba(119, 0, 255, 0.2));
+            border-color: var(--accent-orange);
+        }
+
+        .achievement-tooltip {
+            position: absolute;
+            bottom: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .achievement:hover .achievement-tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ============================================
+           KEYBOARD SHORTCUTS MODAL
+           ============================================ */
+        .shortcuts-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 1500;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .shortcuts-modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .shortcuts-modal {
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 30px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .shortcuts-modal-overlay.show .shortcuts-modal {
+            transform: scale(1);
+        }
+
+        .shortcuts-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .shortcuts-title {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .shortcuts-close {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid var(--glass-border);
+            background: transparent;
+            color: var(--text-primary);
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+        }
+
+        .shortcuts-close:hover {
+            background: var(--glass-bg);
+        }
+
+        .shortcuts-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+        }
+
+        .shortcut-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: var(--glass-bg);
+            border-radius: 10px;
+        }
+
+        .shortcut-desc {
+            font-size: 13px;
+        }
+
+        .shortcut-keys {
+            display: flex;
+            gap: 4px;
+        }
+
+        .shortcut-key {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .shortcuts-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* ============================================
+           WIDGETS SIDEBAR
+           ============================================ */
+        .widgets-sidebar {
+            position: fixed;
+            right: 20px;
+            top: 100px;
+            width: 280px;
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        @media (max-width: 1400px) {
+            .widgets-sidebar {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -1847,8 +2318,153 @@
                 <span class="fab-item-label">View Favorites</span>
                 <button class="fab-item-btn" onclick="document.querySelector('[data-filter=favorites]').click()">⭐</button>
             </div>
+            <div class="fab-item">
+                <span class="fab-item-label">Multi-Select</span>
+                <button class="fab-item-btn" onclick="toggleSelectMode()">☑️</button>
+            </div>
         </div>
         <button class="fab" id="fab-btn" onclick="toggleFab()">+</button>
+    </div>
+
+    <!-- Bulk Actions Bar -->
+    <div class="bulk-actions" id="bulk-actions">
+        <span class="bulk-count"><span id="selected-count">0</span> selected</span>
+        <button class="bulk-btn" onclick="bulkFavorite()">⭐ Favorite All</button>
+        <button class="bulk-btn" onclick="bulkOpen()">📂 Open All</button>
+        <button class="bulk-btn" onclick="clearSelection()">✕ Clear</button>
+    </div>
+
+    <!-- Widgets Sidebar -->
+    <aside class="widgets-sidebar" id="widgets-sidebar">
+        <!-- Mini Calendar -->
+        <div class="sidebar-widget">
+            <div class="widget-header">
+                <span class="widget-title">📅 Calendar</span>
+                <span class="calendar-month" id="calendar-month"></span>
+            </div>
+            <div class="calendar-grid" id="calendar-grid"></div>
+        </div>
+
+        <!-- Quick Notes -->
+        <div class="sidebar-widget">
+            <div class="widget-header">
+                <span class="widget-title">📝 Quick Notes</span>
+            </div>
+            <div class="notes-list" id="notes-list"></div>
+            <div class="note-input-wrapper">
+                <input type="text" class="note-input" id="note-input" placeholder="Add a note..." maxlength="100">
+                <button class="note-add-btn" onclick="addNote()">+</button>
+            </div>
+        </div>
+
+        <!-- System Status -->
+        <div class="sidebar-widget">
+            <div class="widget-header">
+                <span class="widget-title">📊 System Status</span>
+            </div>
+            <div class="status-grid" id="status-grid">
+                <div class="status-item">
+                    <div class="status-icon">💻</div>
+                    <div class="status-info">
+                        <div class="status-label">CPU Usage</div>
+                        <div class="status-bar"><div class="status-fill low" id="cpu-bar" style="width: 23%"></div></div>
+                    </div>
+                    <div class="status-value" id="cpu-value">23%</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon">🧠</div>
+                    <div class="status-info">
+                        <div class="status-label">Memory</div>
+                        <div class="status-bar"><div class="status-fill medium" id="mem-bar" style="width: 67%"></div></div>
+                    </div>
+                    <div class="status-value" id="mem-value">67%</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-icon">💾</div>
+                    <div class="status-info">
+                        <div class="status-label">Storage</div>
+                        <div class="status-bar"><div class="status-fill low" id="storage-bar" style="width: 42%"></div></div>
+                    </div>
+                    <div class="status-value" id="storage-value">42%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievements -->
+        <div class="sidebar-widget">
+            <div class="widget-header">
+                <span class="widget-title">🏆 Achievements</span>
+            </div>
+            <div class="achievements-grid" id="achievements-grid"></div>
+        </div>
+    </aside>
+
+    <!-- Keyboard Shortcuts Modal -->
+    <div class="shortcuts-modal-overlay" id="shortcuts-modal">
+        <div class="shortcuts-modal">
+            <div class="shortcuts-header">
+                <span class="shortcuts-title">⌨️ Keyboard Shortcuts</span>
+                <button class="shortcuts-close" onclick="closeShortcutsModal()">✕</button>
+            </div>
+            <div class="shortcuts-grid">
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Search files</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">/</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Command palette</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">⌘</span><span class="shortcut-key">K</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Toggle theme</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">T</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Grid view</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">G</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">List view</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">L</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Show shortcuts</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">?</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">All files</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">1</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Live files</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">2</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">System files</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">3</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Docs</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">4</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Favorites</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">5</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Multi-select mode</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">S</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Close modal</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">Esc</span></div>
+                </div>
+                <div class="shortcut-item">
+                    <span class="shortcut-desc">Select all</span>
+                    <div class="shortcut-keys"><span class="shortcut-key">⌘</span><span class="shortcut-key">A</span></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Particle Background -->
@@ -2532,14 +3148,22 @@
                     const isFav = favorites.includes(file.id);
                     const card = document.createElement('div');
                     card.className = 'file-card';
+                    card.dataset.fileId = file.id;
                     card.setAttribute('tabindex', '0');
                     card.setAttribute('role', 'button');
                     card.setAttribute('aria-label', `${file.name}: ${file.desc}`);
-                    card.onclick = () => openFile(file.id);
+                    card.onclick = (e) => {
+                        if (selectMode) {
+                            toggleFileSelection(file.id, e);
+                        } else {
+                            openFile(file.id);
+                        }
+                    };
                     card.onkeydown = (e) => { if (e.key === 'Enter') openFile(file.id); };
                     card.oncontextmenu = (e) => showContextMenu(e, file.id);
 
                     card.innerHTML = `
+                        <div class="select-checkbox"></div>
                         <button class="favorite-btn ${isFav ? 'favorited' : ''}"
                                 onclick="toggleFavorite('${file.id}', event)"
                                 aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
@@ -3387,6 +4011,350 @@
         }
 
         // ============================================
+        // MULTI-SELECT MODE
+        // ============================================
+        let selectMode = false;
+        let selectedFiles = new Set();
+
+        function toggleSelectMode() {
+            selectMode = !selectMode;
+            document.body.classList.toggle('select-mode', selectMode);
+            if (!selectMode) {
+                clearSelection();
+            }
+            toggleFab();
+            showToast('info', selectMode ? 'Multi-Select On' : 'Multi-Select Off', selectMode ? 'Click files to select them' : '');
+            playSound('click');
+        }
+
+        function toggleFileSelection(fileId, e) {
+            if (!selectMode) return;
+            e.stopPropagation();
+
+            if (selectedFiles.has(fileId)) {
+                selectedFiles.delete(fileId);
+            } else {
+                selectedFiles.add(fileId);
+            }
+
+            updateSelectionUI();
+            playSound('click');
+        }
+
+        function updateSelectionUI() {
+            document.querySelectorAll('.file-card').forEach(card => {
+                const fileId = card.dataset.fileId;
+                card.classList.toggle('selected', selectedFiles.has(fileId));
+                const checkbox = card.querySelector('.select-checkbox');
+                if (checkbox) checkbox.textContent = selectedFiles.has(fileId) ? '✓' : '';
+            });
+
+            const bulkActions = document.getElementById('bulk-actions');
+            document.getElementById('selected-count').textContent = selectedFiles.size;
+            bulkActions.classList.toggle('show', selectedFiles.size > 0);
+        }
+
+        function clearSelection() {
+            selectedFiles.clear();
+            updateSelectionUI();
+        }
+
+        function bulkFavorite() {
+            selectedFiles.forEach(fileId => {
+                if (!favorites.includes(fileId)) {
+                    favorites.push(fileId);
+                }
+            });
+            saveFavorites();
+            renderFileGrid();
+            showToast('success', 'Added to Favorites', `${selectedFiles.size} files added`);
+            playSound('success');
+            clearSelection();
+        }
+
+        function bulkOpen() {
+            const files = Array.from(selectedFiles);
+            files.forEach((fileId, i) => {
+                setTimeout(() => openFile(fileId), i * 300);
+            });
+            clearSelection();
+        }
+
+        function selectAllFiles() {
+            if (!selectMode) toggleSelectMode();
+            FILES_DB.forEach(f => selectedFiles.add(f.id));
+            updateSelectionUI();
+        }
+
+        // ============================================
+        // MINI CALENDAR
+        // ============================================
+        function renderCalendar() {
+            const now = new Date();
+            const year = now.getFullYear();
+            const month = now.getMonth();
+            const today = now.getDate();
+
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                                'July', 'August', 'September', 'October', 'November', 'December'];
+            document.getElementById('calendar-month').textContent = `${monthNames[month]} ${year}`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const daysInPrevMonth = new Date(year, month, 0).getDate();
+
+            const grid = document.getElementById('calendar-grid');
+            const dayNames = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+            let html = dayNames.map(d => `<div class="calendar-day-name">${d}</div>`).join('');
+
+            // Previous month days
+            for (let i = firstDay - 1; i >= 0; i--) {
+                html += `<div class="calendar-day other-month">${daysInPrevMonth - i}</div>`;
+            }
+
+            // Current month days
+            for (let i = 1; i <= daysInMonth; i++) {
+                const isToday = i === today;
+                html += `<div class="calendar-day ${isToday ? 'today' : ''}">${i}</div>`;
+            }
+
+            // Next month days
+            const remaining = 42 - (firstDay + daysInMonth);
+            for (let i = 1; i <= remaining; i++) {
+                html += `<div class="calendar-day other-month">${i}</div>`;
+            }
+
+            grid.innerHTML = html;
+        }
+
+        // ============================================
+        // QUICK NOTES
+        // ============================================
+        const NOTES_KEY = 'blackroad_notes';
+
+        function getNotes() {
+            const data = localStorage.getItem(NOTES_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveNotes(notes) {
+            localStorage.setItem(NOTES_KEY, JSON.stringify(notes));
+        }
+
+        function renderNotes() {
+            const notes = getNotes();
+            const list = document.getElementById('notes-list');
+
+            if (notes.length === 0) {
+                list.innerHTML = '<div style="text-align:center;color:var(--text-secondary);font-size:12px;padding:20px;">No notes yet</div>';
+                return;
+            }
+
+            list.innerHTML = notes.map((note, i) => `
+                <div class="note-item">
+                    ${note}
+                    <button class="note-delete" onclick="deleteNote(${i})">✕</button>
+                </div>
+            `).join('');
+        }
+
+        function addNote() {
+            const input = document.getElementById('note-input');
+            const text = input.value.trim();
+            if (!text) return;
+
+            const notes = getNotes();
+            notes.unshift(text);
+            saveNotes(notes.slice(0, 10));
+            input.value = '';
+            renderNotes();
+            playSound('success');
+            checkAchievements();
+        }
+
+        function deleteNote(index) {
+            const notes = getNotes();
+            notes.splice(index, 1);
+            saveNotes(notes);
+            renderNotes();
+            playSound('click');
+        }
+
+        document.getElementById('note-input').addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') addNote();
+        });
+
+        // ============================================
+        // SYSTEM STATUS (Simulated)
+        // ============================================
+        function updateSystemStatus() {
+            const cpu = Math.floor(15 + Math.random() * 40);
+            const mem = Math.floor(50 + Math.random() * 30);
+            const storage = Math.floor(35 + Math.random() * 15);
+
+            updateStatusBar('cpu', cpu);
+            updateStatusBar('mem', mem);
+            updateStatusBar('storage', storage);
+        }
+
+        function updateStatusBar(type, value) {
+            const bar = document.getElementById(`${type}-bar`);
+            const valueEl = document.getElementById(`${type}-value`);
+
+            bar.style.width = value + '%';
+            bar.className = 'status-fill ' + (value < 40 ? 'low' : value < 70 ? 'medium' : 'high');
+            valueEl.textContent = value + '%';
+        }
+
+        // ============================================
+        // ACHIEVEMENTS SYSTEM
+        // ============================================
+        const ACHIEVEMENTS_KEY = 'blackroad_achievements';
+
+        const achievementsList = [
+            { id: 'first_login', icon: '🚀', name: 'First Launch', desc: 'Log in for the first time' },
+            { id: 'explorer', icon: '🔍', name: 'Explorer', desc: 'Open 5 different files' },
+            { id: 'collector', icon: '⭐', name: 'Collector', desc: 'Add 3 favorites' },
+            { id: 'note_taker', icon: '📝', name: 'Note Taker', desc: 'Create your first note' },
+            { id: 'night_owl', icon: '🦉', name: 'Night Owl', desc: 'Use Pitstop after midnight' },
+            { id: 'commander', icon: '⌨️', name: 'Commander', desc: 'Use the command palette' },
+            { id: 'themer', icon: '🎨', name: 'Themer', desc: 'Switch themes' },
+            { id: 'power_user', icon: '💪', name: 'Power User', desc: 'Unlock 5 achievements' }
+        ];
+
+        function getUnlockedAchievements() {
+            const data = localStorage.getItem(ACHIEVEMENTS_KEY);
+            return data ? JSON.parse(data) : ['first_login'];
+        }
+
+        function unlockAchievement(id) {
+            const unlocked = getUnlockedAchievements();
+            if (unlocked.includes(id)) return;
+
+            unlocked.push(id);
+            localStorage.setItem(ACHIEVEMENTS_KEY, JSON.stringify(unlocked));
+
+            const achievement = achievementsList.find(a => a.id === id);
+            if (achievement) {
+                showToast('success', 'Achievement Unlocked!', `${achievement.icon} ${achievement.name}`);
+                playSound('success');
+                launchConfetti();
+            }
+
+            renderAchievements();
+            checkAchievements();
+        }
+
+        function renderAchievements() {
+            const unlocked = getUnlockedAchievements();
+            const grid = document.getElementById('achievements-grid');
+
+            grid.innerHTML = achievementsList.map(a => `
+                <div class="achievement ${unlocked.includes(a.id) ? 'unlocked' : 'locked'}" title="${a.name}">
+                    ${a.icon}
+                    <div class="achievement-tooltip">${a.name}<br><small>${a.desc}</small></div>
+                </div>
+            `).join('');
+        }
+
+        function checkAchievements() {
+            const unlocked = getUnlockedAchievements();
+
+            // Explorer
+            const activity = getActivity();
+            if (activity.length >= 5 && !unlocked.includes('explorer')) {
+                unlockAchievement('explorer');
+            }
+
+            // Collector
+            if (favorites.length >= 3 && !unlocked.includes('collector')) {
+                unlockAchievement('collector');
+            }
+
+            // Note Taker
+            if (getNotes().length >= 1 && !unlocked.includes('note_taker')) {
+                unlockAchievement('note_taker');
+            }
+
+            // Night Owl
+            const hour = new Date().getHours();
+            if ((hour >= 0 && hour < 5) && !unlocked.includes('night_owl')) {
+                unlockAchievement('night_owl');
+            }
+
+            // Power User
+            if (unlocked.length >= 5 && !unlocked.includes('power_user')) {
+                unlockAchievement('power_user');
+            }
+        }
+
+        // Track theme changes for achievement
+        const originalToggleTheme = toggleTheme;
+        toggleTheme = function() {
+            originalToggleTheme();
+            unlockAchievement('themer');
+        };
+
+        // Track command palette for achievement
+        const originalOpenCommandPalette = openCommandPalette;
+        openCommandPalette = function() {
+            originalOpenCommandPalette();
+            unlockAchievement('commander');
+        };
+
+        // ============================================
+        // KEYBOARD SHORTCUTS MODAL
+        // ============================================
+        function openShortcutsModal() {
+            document.getElementById('shortcuts-modal').classList.add('show');
+            playSound('click');
+        }
+
+        function closeShortcutsModal() {
+            document.getElementById('shortcuts-modal').classList.remove('show');
+        }
+
+        // Update keyboard handler to include new shortcuts
+        const originalKeyHandler = document.onkeydown;
+        document.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT') return;
+
+            if (e.key === 's' && !e.metaKey && !e.ctrlKey) {
+                toggleSelectMode();
+            }
+
+            if ((e.metaKey || e.ctrlKey) && e.key === 'a' && selectMode) {
+                e.preventDefault();
+                selectAllFiles();
+            }
+
+            if (e.key === '?' && !document.getElementById('shortcuts-modal').classList.contains('show')) {
+                openShortcutsModal();
+            }
+
+            if (e.key === 'Escape' && document.getElementById('shortcuts-modal').classList.contains('show')) {
+                closeShortcutsModal();
+            }
+        });
+
+        // Close modal on overlay click
+        document.getElementById('shortcuts-modal').addEventListener('click', (e) => {
+            if (e.target.id === 'shortcuts-modal') closeShortcutsModal();
+        });
+
+        // ============================================
+        // INITIALIZE WIDGETS
+        // ============================================
+        function initWidgets() {
+            renderCalendar();
+            renderNotes();
+            renderAchievements();
+            updateSystemStatus();
+            setInterval(updateSystemStatus, 5000);
+        }
+
+        // ============================================
         // LOGOUT
         // ============================================
         function logout() {
@@ -3414,10 +4382,12 @@
             initClock();
             initScrollProgress();
             initStatCounters();
+            initWidgets();
             updateNotificationBadge();
             startSessionMonitor();
             renderFileGrid();
             renderActivity();
+            checkAchievements();
 
             // Show onboarding for first-time users
             setTimeout(() => showOnboarding(), 500);
