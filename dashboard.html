@@ -795,11 +795,652 @@
             margin-bottom: 0;
             flex: 1;
         }
+
+        /* ============================================
+           COMMAND PALETTE (Cmd+K)
+           ============================================ */
+        .command-palette-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .command-palette-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .command-palette {
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 70vh;
+            overflow: hidden;
+            box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
+            transform: scale(0.95) translateY(-20px);
+            transition: transform 0.2s ease;
+        }
+
+        .command-palette-overlay.show .command-palette {
+            transform: scale(1) translateY(0);
+        }
+
+        .command-input-wrapper {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .command-input-icon {
+            font-size: 20px;
+            color: var(--accent-purple);
+        }
+
+        .command-input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 18px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+        }
+
+        .command-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .command-hint {
+            font-size: 12px;
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .command-results {
+            max-height: calc(70vh - 80px);
+            overflow-y: auto;
+            padding: 8px;
+        }
+
+        .command-section {
+            padding: 8px 12px;
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .command-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        .command-item:hover,
+        .command-item.selected {
+            background: var(--glass-bg);
+        }
+
+        .command-item.selected {
+            background: rgba(119, 0, 255, 0.15);
+            border: 1px solid rgba(119, 0, 255, 0.3);
+        }
+
+        .command-item-icon {
+            font-size: 24px;
+            width: 32px;
+            text-align: center;
+        }
+
+        .command-item-content {
+            flex: 1;
+        }
+
+        .command-item-title {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 2px;
+        }
+
+        .command-item-desc {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .command-item-shortcut {
+            display: flex;
+            gap: 4px;
+        }
+
+        .command-item-shortcut kbd {
+            background: var(--bg-dark);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--glass-border);
+        }
+
+        /* ============================================
+           3D TILT CARD EFFECT
+           ============================================ */
+        .file-card.tilt-effect {
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+
+        .file-card .card-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            background: radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+                rgba(119, 0, 255, 0.15) 0%,
+                transparent 60%);
+        }
+
+        .file-card:hover .card-glow {
+            opacity: 1;
+        }
+
+        /* ============================================
+           THEME TOGGLE (Dark/Light)
+           ============================================ */
+        .theme-toggle {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent-purple);
+            transform: scale(1.05);
+        }
+
+        /* Light theme variables */
+        [data-theme="light"] {
+            --bg-dark: #f5f5f7;
+            --bg-medium: #ffffff;
+            --bg-light: #e5e5e5;
+            --text-primary: #1a1a1a;
+            --text-secondary: #666666;
+            --glass-bg: rgba(0, 0, 0, 0.03);
+            --glass-border: rgba(0, 0, 0, 0.1);
+        }
+
+        [data-theme="light"] .header {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="light"] .file-card {
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        /* ============================================
+           ACTIVITY FEED
+           ============================================ */
+        .activity-section {
+            margin-bottom: 40px;
+        }
+
+        .activity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .activity-title {
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .activity-badge {
+            background: var(--accent-purple);
+            color: white;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .activity-list {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 4px 0;
+            scroll-behavior: smooth;
+        }
+
+        .activity-list::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .activity-list::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+            border-radius: 3px;
+        }
+
+        .activity-list::-webkit-scrollbar-thumb {
+            background: var(--glass-border);
+            border-radius: 3px;
+        }
+
+        .activity-card {
+            flex-shrink: 0;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px;
+            width: 200px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .activity-card:hover {
+            border-color: var(--accent-purple);
+            transform: translateY(-2px);
+        }
+
+        .activity-card-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .activity-card-name {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 4px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .activity-card-time {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           ONBOARDING TOUR
+           ============================================ */
+        .onboarding-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 3000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .onboarding-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .onboarding-card {
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 40px;
+            max-width: 500px;
+            text-align: center;
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .onboarding-overlay.show .onboarding-card {
+            transform: scale(1);
+        }
+
+        .onboarding-icon {
+            font-size: 64px;
+            margin-bottom: 24px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .onboarding-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-red), var(--accent-purple));
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .onboarding-desc {
+            font-size: 16px;
+            color: var(--text-secondary);
+            margin-bottom: 32px;
+            line-height: 1.6;
+        }
+
+        .onboarding-features {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 32px;
+            flex-wrap: wrap;
+        }
+
+        .onboarding-feature {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px;
+            width: 120px;
+            text-align: center;
+        }
+
+        .onboarding-feature-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .onboarding-feature-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .onboarding-progress {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 24px;
+        }
+
+        .onboarding-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .onboarding-dot.active {
+            background: var(--accent-purple);
+            width: 24px;
+            border-radius: 4px;
+        }
+
+        .onboarding-btn {
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+            border: none;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .onboarding-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 157, 0, 0.3);
+        }
+
+        .onboarding-skip {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            margin-left: 16px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .onboarding-skip:hover {
+            color: var(--text-primary);
+        }
+
+        /* ============================================
+           CONFETTI EFFECT
+           ============================================ */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: 4000;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            animation: confettiFall 3s ease-out forwards;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+           PARTICLE BACKGROUND
+           ============================================ */
+        .particle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--accent-purple);
+            border-radius: 50%;
+            opacity: 0.3;
+            animation: particleFloat 20s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+            10% { opacity: 0.3; }
+            90% { opacity: 0.3; }
+            100% { transform: translateY(-100px) translateX(100px); opacity: 0; }
+        }
+
+        /* ============================================
+           QUICK ACTIONS MENU
+           ============================================ */
+        .quick-actions {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 8px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 8px;
+            min-width: 180px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+            transition: all 0.2s ease;
+            z-index: 100;
+        }
+
+        .file-card:hover .quick-actions.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .quick-action-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.15s ease;
+        }
+
+        .quick-action-item:hover {
+            background: var(--glass-bg);
+        }
+
+        .quick-action-icon {
+            font-size: 16px;
+        }
+
+        /* ============================================
+           SOUND TOGGLE
+           ============================================ */
+        .sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 50;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .sound-toggle:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .sound-toggle .label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        /* ============================================
+           ANIMATED STATS
+           ============================================ */
+        .stat-value {
+            display: inline-block;
+        }
+
+        .stat-value.counting {
+            animation: countPulse 0.1s ease;
+        }
+
+        @keyframes countPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* ============================================
+           HEADER ENHANCEMENTS
+           ============================================ */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .cmd-k-hint {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cmd-k-hint:hover {
+            border-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        .cmd-k-hint kbd {
+            background: var(--bg-dark);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
     </style>
 </head>
 <body>
     <!-- Skip Link for Accessibility -->
     <a href="#file-grid" class="skip-link">Skip to files</a>
+
+    <!-- Particle Background -->
+    <div class="particle-bg" id="particle-bg" aria-hidden="true"></div>
+
+    <!-- Confetti Container -->
+    <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
 
     <!-- Toast Container -->
     <div class="toast-container" id="toast-container" role="alert" aria-live="polite"></div>
@@ -808,6 +1449,94 @@
     <div class="session-banner" id="session-banner" role="alert">
         <span id="session-message">Your session will expire in <strong id="session-countdown">5:00</strong></span>
         <button onclick="extendSession()" aria-label="Extend session">Extend Session</button>
+    </div>
+
+    <!-- Onboarding Tour -->
+    <div class="onboarding-overlay" id="onboarding-overlay">
+        <div class="onboarding-card">
+            <div class="onboarding-icon" id="onboarding-icon">🚀</div>
+            <h2 class="onboarding-title" id="onboarding-title">Welcome to Pitstop!</h2>
+            <p class="onboarding-desc" id="onboarding-desc">Your secure gateway to the BlackRoad OS metaverse. Explore all 18 systems and manage your files with ease.</p>
+            <div class="onboarding-features" id="onboarding-features">
+                <div class="onboarding-feature">
+                    <div class="onboarding-feature-icon">🔍</div>
+                    <div class="onboarding-feature-text">Quick Search</div>
+                </div>
+                <div class="onboarding-feature">
+                    <div class="onboarding-feature-icon">⭐</div>
+                    <div class="onboarding-feature-text">Favorites</div>
+                </div>
+                <div class="onboarding-feature">
+                    <div class="onboarding-feature-icon">⌨️</div>
+                    <div class="onboarding-feature-text">Shortcuts</div>
+                </div>
+            </div>
+            <div class="onboarding-progress" id="onboarding-progress">
+                <div class="onboarding-dot active"></div>
+                <div class="onboarding-dot"></div>
+                <div class="onboarding-dot"></div>
+            </div>
+            <div>
+                <button class="onboarding-btn" id="onboarding-next">Get Started</button>
+                <button class="onboarding-skip" onclick="closeOnboarding()">Skip Tour</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Command Palette -->
+    <div class="command-palette-overlay" id="command-palette-overlay">
+        <div class="command-palette">
+            <div class="command-input-wrapper">
+                <span class="command-input-icon">⌘</span>
+                <input type="text" class="command-input" id="command-input" placeholder="Type a command or search..." autocomplete="off" />
+                <span class="command-hint">ESC to close</span>
+            </div>
+            <div class="command-results" id="command-results">
+                <div class="command-section">Quick Actions</div>
+                <div class="command-item" data-action="search">
+                    <span class="command-item-icon">🔍</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">Search Files</div>
+                        <div class="command-item-desc">Find files by name or content</div>
+                    </div>
+                    <div class="command-item-shortcut"><kbd>/</kbd></div>
+                </div>
+                <div class="command-item" data-action="theme">
+                    <span class="command-item-icon">🌓</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">Toggle Theme</div>
+                        <div class="command-item-desc">Switch between dark and light mode</div>
+                    </div>
+                    <div class="command-item-shortcut"><kbd>T</kbd></div>
+                </div>
+                <div class="command-item" data-action="favorites">
+                    <span class="command-item-icon">⭐</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">View Favorites</div>
+                        <div class="command-item-desc">Show your starred files</div>
+                    </div>
+                    <div class="command-item-shortcut"><kbd>5</kbd></div>
+                </div>
+                <div class="command-item" data-action="grid">
+                    <span class="command-item-icon">▦</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">Grid View</div>
+                        <div class="command-item-desc">Switch to grid layout</div>
+                    </div>
+                    <div class="command-item-shortcut"><kbd>G</kbd></div>
+                </div>
+                <div class="command-item" data-action="list">
+                    <span class="command-item-icon">☰</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">List View</div>
+                        <div class="command-item-desc">Switch to list layout</div>
+                    </div>
+                    <div class="command-item-shortcut"><kbd>L</kbd></div>
+                </div>
+                <div class="command-section">Files</div>
+                <div id="command-files"></div>
+            </div>
+        </div>
     </div>
 
     <!-- File Preview Modal -->
@@ -842,6 +1571,13 @@
             <nav class="breadcrumb" aria-label="Breadcrumb">/ dashboard</nav>
         </div>
         <div class="header-right">
+            <button class="cmd-k-hint" onclick="openCommandPalette()" title="Open command palette">
+                <span>Search</span>
+                <kbd>⌘K</kbd>
+            </button>
+            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+                <span id="theme-icon">🌙</span>
+            </button>
             <div class="user-info" role="status" aria-label="User information">
                 <div class="user-avatar" id="user-avatar" aria-hidden="true">A</div>
                 <div class="user-name" id="user-name">Loading...</div>
@@ -854,6 +1590,19 @@
     <main class="container" role="main">
         <h1 class="page-title">Welcome to Pitstop</h1>
         <p class="page-subtitle">Secure access to all BlackRoad OS systems and files</p>
+
+        <!-- Activity Feed / Recent Files -->
+        <div class="activity-section" id="activity-section">
+            <div class="activity-header">
+                <div class="activity-title">
+                    Recent Activity
+                    <span class="activity-badge" id="activity-count">0</span>
+                </div>
+            </div>
+            <div class="activity-list" id="activity-list">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
 
         <!-- Search & Filter Bar -->
         <div class="search-bar" role="search">
@@ -1090,11 +1839,18 @@
         </div>
     </main>
 
+    <!-- Sound Toggle -->
+    <button class="sound-toggle" id="sound-toggle" onclick="toggleSound()" title="Toggle sound effects">
+        <span id="sound-icon">🔊</span>
+        <span class="label">Sound</span>
+    </button>
+
     <!-- Keyboard Shortcuts Panel -->
     <div class="shortcuts-panel" id="shortcuts-panel" aria-hidden="true">
         <div style="margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Keyboard Shortcuts</div>
+        <div><kbd>⌘K</kbd> Command palette</div>
         <div><kbd>/</kbd> Focus search</div>
-        <div><kbd>Esc</kbd> Clear/Close</div>
+        <div><kbd>T</kbd> Toggle theme</div>
         <div><kbd>G</kbd> Grid view</div>
         <div><kbd>L</kbd> List view</div>
         <div><kbd>?</kbd> Toggle help</div>
@@ -1474,41 +2230,384 @@
         });
 
         // ============================================
+        // THEME TOGGLE
+        // ============================================
+        const THEME_KEY = 'blackroad_theme';
+        let currentTheme = localStorage.getItem(THEME_KEY) || 'dark';
+
+        function toggleTheme() {
+            currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            localStorage.setItem(THEME_KEY, currentTheme);
+            document.getElementById('theme-icon').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+            playSound('click');
+            showToast('info', 'Theme Changed', `Switched to ${currentTheme} mode`);
+        }
+
+        function initTheme() {
+            document.documentElement.setAttribute('data-theme', currentTheme);
+            document.getElementById('theme-icon').textContent = currentTheme === 'dark' ? '🌙' : '☀️';
+        }
+
+        // ============================================
+        // SOUND EFFECTS
+        // ============================================
+        const SOUND_KEY = 'blackroad_sound';
+        let soundEnabled = localStorage.getItem(SOUND_KEY) !== 'false';
+
+        const sounds = {
+            click: () => playTone(800, 50),
+            success: () => { playTone(523, 100); setTimeout(() => playTone(659, 100), 100); setTimeout(() => playTone(784, 150), 200); },
+            error: () => playTone(200, 200),
+            notification: () => playTone(440, 100)
+        };
+
+        function playTone(freq, duration) {
+            if (!soundEnabled) return;
+            try {
+                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain);
+                gain.connect(ctx.destination);
+                osc.frequency.value = freq;
+                gain.gain.value = 0.1;
+                osc.start();
+                gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + duration / 1000);
+                osc.stop(ctx.currentTime + duration / 1000);
+            } catch (e) {}
+        }
+
+        function playSound(type) {
+            if (sounds[type]) sounds[type]();
+        }
+
+        function toggleSound() {
+            soundEnabled = !soundEnabled;
+            localStorage.setItem(SOUND_KEY, soundEnabled);
+            document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+            if (soundEnabled) playSound('click');
+            showToast('info', 'Sound ' + (soundEnabled ? 'Enabled' : 'Disabled'), '');
+        }
+
+        function initSound() {
+            document.getElementById('sound-icon').textContent = soundEnabled ? '🔊' : '🔇';
+        }
+
+        // ============================================
+        // COMMAND PALETTE
+        // ============================================
+        const commandPaletteOverlay = document.getElementById('command-palette-overlay');
+        const commandInput = document.getElementById('command-input');
+        const commandFiles = document.getElementById('command-files');
+        let selectedCommandIndex = 0;
+
+        function openCommandPalette() {
+            commandPaletteOverlay.classList.add('show');
+            commandInput.value = '';
+            commandInput.focus();
+            updateCommandFiles('');
+            playSound('click');
+        }
+
+        function closeCommandPalette() {
+            commandPaletteOverlay.classList.remove('show');
+            commandInput.value = '';
+        }
+
+        function updateCommandFiles(query) {
+            const filtered = FILES_DB.filter(f =>
+                f.name.toLowerCase().includes(query.toLowerCase()) ||
+                f.desc.toLowerCase().includes(query.toLowerCase())
+            ).slice(0, 5);
+
+            commandFiles.innerHTML = filtered.map(f => `
+                <div class="command-item" data-file="${f.id}">
+                    <span class="command-item-icon">${f.icon}</span>
+                    <div class="command-item-content">
+                        <div class="command-item-title">${f.name}</div>
+                        <div class="command-item-desc">${f.desc}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        commandInput.addEventListener('input', (e) => {
+            updateCommandFiles(e.target.value);
+        });
+
+        commandPaletteOverlay.addEventListener('click', (e) => {
+            if (e.target === commandPaletteOverlay) closeCommandPalette();
+
+            const item = e.target.closest('.command-item');
+            if (item) {
+                const action = item.dataset.action;
+                const file = item.dataset.file;
+
+                if (action === 'search') { closeCommandPalette(); searchInput.focus(); }
+                else if (action === 'theme') { toggleTheme(); closeCommandPalette(); }
+                else if (action === 'favorites') { document.querySelector('[data-filter="favorites"]').click(); closeCommandPalette(); }
+                else if (action === 'grid') { document.querySelector('[data-view="grid"]').click(); closeCommandPalette(); }
+                else if (action === 'list') { document.querySelector('[data-view="list"]').click(); closeCommandPalette(); }
+                else if (file) { openFile(file); closeCommandPalette(); }
+            }
+        });
+
+        // ============================================
+        // PARTICLE BACKGROUND
+        // ============================================
+        function initParticles() {
+            const container = document.getElementById('particle-bg');
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDelay = `${Math.random() * 20}s`;
+                particle.style.animationDuration = `${15 + Math.random() * 10}s`;
+                container.appendChild(particle);
+            }
+        }
+
+        // ============================================
+        // CONFETTI EFFECT
+        // ============================================
+        function launchConfetti() {
+            const container = document.getElementById('confetti-container');
+            const colors = ['#FF9D00', '#FF006B', '#7700FF', '#0066FF', '#27AE60'];
+
+            for (let i = 0; i < 100; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = 'confetti';
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confetti.style.animationDuration = `${2 + Math.random() * 2}s`;
+                container.appendChild(confetti);
+            }
+
+            setTimeout(() => container.innerHTML = '', 4000);
+        }
+
+        // ============================================
+        // 3D TILT EFFECT
+        // ============================================
+        function init3DTilt() {
+            document.addEventListener('mousemove', (e) => {
+                const cards = document.querySelectorAll('.file-card');
+                cards.forEach(card => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    card.style.setProperty('--mouse-x', `${x}%`);
+                    card.style.setProperty('--mouse-y', `${y}%`);
+                });
+            });
+        }
+
+        // ============================================
+        // ACTIVITY FEED
+        // ============================================
+        const ACTIVITY_KEY = 'blackroad_activity';
+
+        function getActivity() {
+            const data = localStorage.getItem(ACTIVITY_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function addActivity(fileId) {
+            let activity = getActivity();
+            activity = activity.filter(a => a.id !== fileId);
+            const file = FILES_DB.find(f => f.id === fileId);
+            if (file) {
+                activity.unshift({ id: fileId, timestamp: Date.now() });
+                activity = activity.slice(0, 10);
+                localStorage.setItem(ACTIVITY_KEY, JSON.stringify(activity));
+                renderActivity();
+            }
+        }
+
+        function renderActivity() {
+            const activity = getActivity();
+            const list = document.getElementById('activity-list');
+            const section = document.getElementById('activity-section');
+
+            if (activity.length === 0) {
+                section.style.display = 'none';
+                return;
+            }
+
+            section.style.display = 'block';
+            document.getElementById('activity-count').textContent = activity.length;
+
+            list.innerHTML = activity.map(a => {
+                const file = FILES_DB.find(f => f.id === a.id);
+                if (!file) return '';
+                const timeAgo = getTimeAgo(a.timestamp);
+                return `
+                    <div class="activity-card" onclick="openFile('${file.id}')">
+                        <div class="activity-card-icon">${file.icon}</div>
+                        <div class="activity-card-name">${file.name}</div>
+                        <div class="activity-card-time">${timeAgo}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getTimeAgo(timestamp) {
+            const diff = Date.now() - timestamp;
+            const mins = Math.floor(diff / 60000);
+            const hours = Math.floor(diff / 3600000);
+            const days = Math.floor(diff / 86400000);
+            if (mins < 1) return 'Just now';
+            if (mins < 60) return `${mins}m ago`;
+            if (hours < 24) return `${hours}h ago`;
+            return `${days}d ago`;
+        }
+
+        // ============================================
+        // ONBOARDING TOUR
+        // ============================================
+        const ONBOARDING_KEY = 'blackroad_onboarding_done';
+        let onboardingStep = 0;
+
+        const onboardingSteps = [
+            {
+                icon: '🚀',
+                title: 'Welcome to Pitstop!',
+                desc: 'Your secure gateway to the BlackRoad OS metaverse. Explore all 18 systems and manage your files with ease.',
+                features: [
+                    { icon: '🔍', text: 'Quick Search' },
+                    { icon: '⭐', text: 'Favorites' },
+                    { icon: '⌨️', text: 'Shortcuts' }
+                ]
+            },
+            {
+                icon: '⌘',
+                title: 'Command Palette',
+                desc: 'Press ⌘K (or Ctrl+K) anytime to open the command palette. Search files, toggle theme, and more!',
+                features: [
+                    { icon: '🔍', text: 'Search Files' },
+                    { icon: '🌓', text: 'Toggle Theme' },
+                    { icon: '⚡', text: 'Quick Actions' }
+                ]
+            },
+            {
+                icon: '✨',
+                title: 'You\'re All Set!',
+                desc: 'Explore the metaverse, star your favorite files, and enjoy the journey through BlackRoad OS.',
+                features: [
+                    { icon: '🌌', text: '18 Systems' },
+                    { icon: '📁', text: '32+ Files' },
+                    { icon: '🚀', text: 'Infinite Fun' }
+                ]
+            }
+        ];
+
+        function showOnboarding() {
+            if (localStorage.getItem(ONBOARDING_KEY)) return;
+            document.getElementById('onboarding-overlay').classList.add('show');
+            renderOnboardingStep();
+        }
+
+        function renderOnboardingStep() {
+            const step = onboardingSteps[onboardingStep];
+            document.getElementById('onboarding-icon').textContent = step.icon;
+            document.getElementById('onboarding-title').textContent = step.title;
+            document.getElementById('onboarding-desc').textContent = step.desc;
+
+            document.getElementById('onboarding-features').innerHTML = step.features.map(f => `
+                <div class="onboarding-feature">
+                    <div class="onboarding-feature-icon">${f.icon}</div>
+                    <div class="onboarding-feature-text">${f.text}</div>
+                </div>
+            `).join('');
+
+            document.getElementById('onboarding-progress').innerHTML = onboardingSteps.map((_, i) =>
+                `<div class="onboarding-dot ${i === onboardingStep ? 'active' : ''}"></div>`
+            ).join('');
+
+            document.getElementById('onboarding-next').textContent =
+                onboardingStep === onboardingSteps.length - 1 ? 'Let\'s Go!' : 'Next';
+        }
+
+        document.getElementById('onboarding-next').addEventListener('click', () => {
+            onboardingStep++;
+            if (onboardingStep >= onboardingSteps.length) {
+                closeOnboarding();
+                launchConfetti();
+            } else {
+                renderOnboardingStep();
+            }
+        });
+
+        function closeOnboarding() {
+            document.getElementById('onboarding-overlay').classList.remove('show');
+            localStorage.setItem(ONBOARDING_KEY, 'true');
+        }
+
+        // ============================================
         // KEYBOARD SHORTCUTS
         // ============================================
         const shortcutsPanel = document.getElementById('shortcuts-panel');
         let shortcutsVisible = true;
 
         document.addEventListener('keydown', (e) => {
-            // Ignore if typing in input
-            if (e.target.tagName === 'INPUT') {
-                if (e.key === 'Escape') {
-                    e.target.blur();
-                    searchInput.value = '';
-                    currentSearch = '';
-                    searchClear.classList.remove('show');
-                    renderFileGrid();
+            // Command palette shortcut
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                if (commandPaletteOverlay.classList.contains('show')) {
+                    closeCommandPalette();
+                } else {
+                    openCommandPalette();
                 }
                 return;
             }
 
-            switch (e.key) {
+            // Close overlays on Escape
+            if (e.key === 'Escape') {
+                if (commandPaletteOverlay.classList.contains('show')) {
+                    closeCommandPalette();
+                    return;
+                }
+                if (modalOverlay.classList.contains('show')) {
+                    closeModal();
+                    return;
+                }
+                if (document.getElementById('onboarding-overlay').classList.contains('show')) {
+                    closeOnboarding();
+                    return;
+                }
+            }
+
+            // Ignore if typing in input
+            if (e.target.tagName === 'INPUT') {
+                if (e.key === 'Escape') {
+                    e.target.blur();
+                    if (e.target === commandInput) {
+                        closeCommandPalette();
+                    } else {
+                        searchInput.value = '';
+                        currentSearch = '';
+                        searchClear.classList.remove('show');
+                        renderFileGrid();
+                    }
+                }
+                return;
+            }
+
+            switch (e.key.toLowerCase()) {
                 case '/':
                     e.preventDefault();
                     searchInput.focus();
                     break;
-                case 'Escape':
-                    if (modalOverlay.classList.contains('show')) {
-                        closeModal();
-                    }
+                case 't':
+                    toggleTheme();
                     break;
                 case 'g':
-                case 'G':
                     document.querySelector('[data-view="grid"]').click();
                     showToast('info', 'View Changed', 'Switched to grid view');
                     break;
                 case 'l':
-                case 'L':
                     document.querySelector('[data-view="list"]').click();
                     showToast('info', 'View Changed', 'Switched to list view');
                     break;
@@ -1516,28 +2615,29 @@
                     shortcutsVisible = !shortcutsVisible;
                     shortcutsPanel.style.display = shortcutsVisible ? 'block' : 'none';
                     break;
-                case '1':
-                    document.querySelector('[data-filter="all"]').click();
-                    break;
-                case '2':
-                    document.querySelector('[data-filter="live"]').click();
-                    break;
-                case '3':
-                    document.querySelector('[data-filter="system"]').click();
-                    break;
-                case '4':
-                    document.querySelector('[data-filter="docs"]').click();
-                    break;
-                case '5':
-                    document.querySelector('[data-filter="favorites"]').click();
-                    break;
+                case '1': document.querySelector('[data-filter="all"]').click(); break;
+                case '2': document.querySelector('[data-filter="live"]').click(); break;
+                case '3': document.querySelector('[data-filter="system"]').click(); break;
+                case '4': document.querySelector('[data-filter="docs"]').click(); break;
+                case '5': document.querySelector('[data-filter="favorites"]').click(); break;
             }
         });
+
+        // ============================================
+        // ENHANCED FILE OPEN (with activity tracking)
+        // ============================================
+        const originalOpenFile = openFile;
+        openFile = function(filename) {
+            addActivity(filename);
+            playSound('click');
+            originalOpenFile(filename);
+        };
 
         // ============================================
         // LOGOUT
         // ============================================
         function logout() {
+            playSound('notification');
             showToast('info', 'Logging Out', 'See you soon!');
             setTimeout(() => {
                 localStorage.removeItem(SESSION_KEY);
@@ -1553,14 +2653,23 @@
             document.getElementById('user-name').textContent = session.username;
             document.getElementById('user-avatar').textContent = session.username.charAt(0).toUpperCase();
 
-            // Start session monitoring
+            // Initialize all systems
+            initTheme();
+            initSound();
+            initParticles();
+            init3DTilt();
             startSessionMonitor();
-
-            // Initial render
             renderFileGrid();
+            renderActivity();
 
-            // Welcome toast
-            showToast('success', `Welcome, ${session.username}!`, 'You have access to all BlackRoad files.');
+            // Show onboarding for first-time users
+            setTimeout(() => showOnboarding(), 500);
+
+            // Welcome message
+            setTimeout(() => {
+                playSound('success');
+                showToast('success', `Welcome, ${session.username}!`, 'You have access to all BlackRoad files.');
+            }, 300);
         }
     </script>
 </body>
