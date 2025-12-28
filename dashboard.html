@@ -263,28 +263,623 @@
             font-size: 24px;
             margin-bottom: 8px;
         }
+
+        /* ============================================
+           TOAST NOTIFICATION SYSTEM
+           ============================================ */
+        .toast-container {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            pointer-events: none;
+        }
+
+        .toast {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            animation: toastSlideIn 0.3s ease;
+            pointer-events: auto;
+            backdrop-filter: blur(20px);
+            max-width: 380px;
+        }
+
+        .toast.hiding {
+            animation: toastSlideOut 0.3s ease forwards;
+        }
+
+        @keyframes toastSlideIn {
+            from { opacity: 0; transform: translateX(100px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        @keyframes toastSlideOut {
+            from { opacity: 1; transform: translateX(0); }
+            to { opacity: 0; transform: translateX(100px); }
+        }
+
+        .toast-icon { font-size: 20px; flex-shrink: 0; }
+        .toast-content { flex: 1; }
+        .toast-title { font-weight: 600; font-size: 14px; margin-bottom: 2px; }
+        .toast-message { font-size: 13px; color: var(--text-secondary); }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px;
+            font-size: 18px;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .toast-close:hover { color: var(--text-primary); }
+        .toast.success { border-left: 4px solid var(--accent-green); }
+        .toast.error { border-left: 4px solid #E74C3C; }
+        .toast.warning { border-left: 4px solid var(--accent-orange); }
+        .toast.info { border-left: 4px solid var(--accent-blue); }
+
+        /* ============================================
+           SEARCH & FILTER BAR
+           ============================================ */
+        .search-bar {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 48px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 15px;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-purple);
+            box-shadow: 0 0 0 3px rgba(119, 0, 255, 0.1);
+        }
+
+        .search-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: var(--text-secondary);
+        }
+
+        .search-clear {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            padding: 4px 8px;
+            font-size: 14px;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .search-clear.show { display: block; }
+        .search-clear:hover { color: var(--text-primary); background: var(--glass-bg); }
+
+        .filter-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 12px 20px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-purple);
+            color: var(--text-primary);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-purple);
+            border-color: var(--accent-purple);
+            color: white;
+        }
+
+        .filter-count {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+            font-size: 11px;
+        }
+
+        /* ============================================
+           FAVORITES FEATURE
+           ============================================ */
+        .favorite-btn {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: all 0.2s ease;
+            z-index: 10;
+        }
+
+        .favorite-btn:hover { opacity: 1; transform: scale(1.2); }
+        .favorite-btn.favorited { opacity: 1; }
+        .file-card { position: relative; }
+
+        /* ============================================
+           FILE PREVIEW MODAL
+           ============================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow: hidden;
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.show .modal-content {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 24px;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .modal-close {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-secondary);
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: rgba(231, 76, 60, 0.1);
+            border-color: rgba(231, 76, 60, 0.3);
+            color: #E74C3C;
+        }
+
+        .modal-body {
+            padding: 24px;
+            max-height: calc(85vh - 140px);
+            overflow-y: auto;
+        }
+
+        .modal-body pre {
+            background: var(--bg-dark);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .modal-footer {
+            padding: 16px 24px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .modal-btn-primary {
+            background: linear-gradient(45deg, var(--accent-orange), var(--accent-red));
+            border: none;
+            color: white;
+        }
+
+        .modal-btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(255, 157, 0, 0.3);
+        }
+
+        .modal-btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+        }
+
+        .modal-btn-secondary:hover {
+            border-color: var(--accent-purple);
+        }
+
+        .loading-spinner {
+            display: flex;
+            justify-content: center;
+            padding: 40px;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--glass-border);
+            border-top-color: var(--accent-purple);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ============================================
+           SESSION EXPIRY BANNER
+           ============================================ */
+        .session-banner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(90deg, var(--accent-orange), var(--accent-red));
+            color: white;
+            padding: 12px 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            z-index: 200;
+            transform: translateY(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .session-banner.show { transform: translateY(0); }
+
+        .session-banner button {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 6px;
+            margin-left: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .session-banner button:hover { background: rgba(255, 255, 255, 0.3); }
+
+        /* ============================================
+           KEYBOARD SHORTCUTS PANEL
+           ============================================ */
+        .shortcuts-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            z-index: 50;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .shortcuts-panel:hover { opacity: 1; }
+
+        .shortcuts-panel kbd {
+            background: var(--glass-bg);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--glass-border);
+            margin: 0 2px;
+        }
+
+        .shortcuts-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--bg-medium);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            padding: 10px 14px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+            z-index: 49;
+            transition: all 0.2s;
+        }
+
+        .shortcuts-toggle:hover { border-color: var(--accent-purple); color: var(--text-primary); }
+
+        /* ============================================
+           EMPTY STATE
+           ============================================ */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-secondary);
+        }
+
+        .empty-state-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-state-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+        }
+
+        .empty-state-message { font-size: 14px; }
+
+        /* ============================================
+           ACCESSIBILITY & FOCUS STATES
+           ============================================ */
+        .file-card:focus-visible,
+        .filter-btn:focus-visible,
+        .search-input:focus-visible,
+        .modal-close:focus-visible {
+            outline: 2px solid var(--accent-purple);
+            outline-offset: 2px;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--accent-purple);
+            color: white;
+            padding: 8px 16px;
+            z-index: 1002;
+            text-decoration: none;
+            border-radius: 0 0 8px 0;
+            transition: top 0.3s;
+        }
+
+        .skip-link:focus { top: 0; }
+
+        /* View toggle */
+        .view-toggle {
+            display: flex;
+            gap: 4px;
+            background: var(--bg-medium);
+            padding: 4px;
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
+        }
+
+        .view-btn {
+            padding: 8px 12px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: var(--accent-purple);
+            color: white;
+        }
+
+        .view-btn:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        /* List view */
+        .file-grid.list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .file-grid.list-view .file-card {
+            display: flex;
+            align-items: center;
+            padding: 16px 20px;
+            gap: 16px;
+        }
+
+        .file-grid.list-view .file-icon {
+            font-size: 28px;
+            margin-bottom: 0;
+        }
+
+        .file-grid.list-view .file-title {
+            margin-bottom: 2px;
+        }
+
+        .file-grid.list-view .file-description {
+            margin-bottom: 0;
+            flex: 1;
+        }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <div class="header">
-        <div class="header-left">
-            <div class="logo">PITSTOP</div>
-            <div class="breadcrumb">/ dashboard</div>
-        </div>
-        <div class="header-right">
-            <div class="user-info">
-                <div class="user-avatar" id="user-avatar">A</div>
-                <div class="user-name" id="user-name">Loading...</div>
+    <!-- Skip Link for Accessibility -->
+    <a href="#file-grid" class="skip-link">Skip to files</a>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toast-container" role="alert" aria-live="polite"></div>
+
+    <!-- Session Expiry Banner -->
+    <div class="session-banner" id="session-banner" role="alert">
+        <span id="session-message">Your session will expire in <strong id="session-countdown">5:00</strong></span>
+        <button onclick="extendSession()" aria-label="Extend session">Extend Session</button>
+    </div>
+
+    <!-- File Preview Modal -->
+    <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title" id="modal-title">
+                    <span id="modal-icon">📄</span>
+                    <span id="modal-filename">filename.js</span>
+                </h2>
+                <button class="modal-close" onclick="closeModal()" aria-label="Close modal">&times;</button>
             </div>
-            <button class="logout-button" onclick="logout()">Logout</button>
+            <div class="modal-body" id="modal-body">
+                <div class="loading-spinner">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <span id="modal-meta" class="text-secondary" style="font-size: 13px; color: var(--text-secondary);">Loading...</span>
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-secondary" onclick="closeModal()">Close</button>
+                    <button class="modal-btn modal-btn-primary" id="modal-open-btn" onclick="openFileExternal()">Open File</button>
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Header -->
+    <header class="header" role="banner">
+        <div class="header-left">
+            <div class="logo" aria-label="Pitstop Dashboard">PITSTOP</div>
+            <nav class="breadcrumb" aria-label="Breadcrumb">/ dashboard</nav>
+        </div>
+        <div class="header-right">
+            <div class="user-info" role="status" aria-label="User information">
+                <div class="user-avatar" id="user-avatar" aria-hidden="true">A</div>
+                <div class="user-name" id="user-name">Loading...</div>
+            </div>
+            <button class="logout-button" onclick="logout()" aria-label="Logout from Pitstop">Logout</button>
+        </div>
+    </header>
+
     <!-- Main Container -->
-    <div class="container">
+    <main class="container" role="main">
         <h1 class="page-title">Welcome to Pitstop</h1>
         <p class="page-subtitle">Secure access to all BlackRoad OS systems and files</p>
+
+        <!-- Search & Filter Bar -->
+        <div class="search-bar" role="search">
+            <div class="search-input-wrapper">
+                <span class="search-icon" aria-hidden="true">🔍</span>
+                <input
+                    type="text"
+                    class="search-input"
+                    id="search-input"
+                    placeholder="Search files... (Press / to focus)"
+                    aria-label="Search files"
+                />
+                <button class="search-clear" id="search-clear" aria-label="Clear search">&times;</button>
+            </div>
+            <div class="filter-buttons" role="group" aria-label="Filter by category">
+                <button class="filter-btn active" data-filter="all">All<span class="filter-count" id="count-all">17</span></button>
+                <button class="filter-btn" data-filter="live">Live<span class="filter-count" id="count-live">2</span></button>
+                <button class="filter-btn" data-filter="system">System<span class="filter-count" id="count-system">12</span></button>
+                <button class="filter-btn" data-filter="docs">Docs<span class="filter-count" id="count-docs">2</span></button>
+                <button class="filter-btn" data-filter="favorites">★ Favorites<span class="filter-count" id="count-favorites">0</span></button>
+            </div>
+            <div class="view-toggle" role="group" aria-label="View mode">
+                <button class="view-btn active" data-view="grid" aria-label="Grid view" title="Grid view">▦</button>
+                <button class="view-btn" data-view="list" aria-label="List view" title="List view">☰</button>
+            </div>
+        </div>
 
         <!-- Stats -->
         <div class="stats-grid">
@@ -311,7 +906,7 @@
         </div>
 
         <!-- File Grid -->
-        <div class="file-grid">
+        <div class="file-grid" id="file-grid" role="grid" aria-label="File list">
             <!-- Metaverse Files -->
             <div class="file-card" onclick="openFile('universe.html')">
                 <div class="file-icon">🌌</div>
@@ -486,12 +1081,113 @@
                 </div>
             </div>
         </div>
+
+        <!-- Empty State (shown when no results) -->
+        <div class="empty-state" id="empty-state" style="display: none;">
+            <div class="empty-state-icon">🔍</div>
+            <div class="empty-state-title">No files found</div>
+            <div class="empty-state-message">Try adjusting your search or filter criteria</div>
+        </div>
+    </main>
+
+    <!-- Keyboard Shortcuts Panel -->
+    <div class="shortcuts-panel" id="shortcuts-panel" aria-hidden="true">
+        <div style="margin-bottom: 8px; font-weight: 600; color: var(--text-primary);">Keyboard Shortcuts</div>
+        <div><kbd>/</kbd> Focus search</div>
+        <div><kbd>Esc</kbd> Clear/Close</div>
+        <div><kbd>G</kbd> Grid view</div>
+        <div><kbd>L</kbd> List view</div>
+        <div><kbd>?</kbd> Toggle help</div>
     </div>
 
     <script>
+        // ============================================
+        // CONFIGURATION & CONSTANTS
+        // ============================================
         const SESSION_KEY = 'blackroad_pitstop_session';
+        const FAVORITES_KEY = 'blackroad_favorites';
+        const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours
+        const SESSION_WARNING_TIME = 5 * 60 * 1000; // 5 minutes before expiry
 
-        // Check authentication
+        // File database with metadata
+        const FILES_DB = [
+            { id: 'universe.html', name: 'Complete Universe', icon: '🌌', desc: 'Full integration of all 18 systems with beautiful UI', lines: 981, badge: 'live', category: 'live' },
+            { id: 'index.html', name: 'Original Metaverse', icon: '🎮', desc: 'First version with core features', lines: 1698, badge: 'live', category: 'live' },
+            { id: 'module-loader.js', name: 'Module Loader', icon: '🔗', desc: 'Dynamic import system with dependency management', lines: 287, badge: 'module', category: 'system' },
+            { id: 'truth-contracts.js', name: 'Truth Contracts', icon: '🔐', desc: 'Time scales, reference frames, and verification', lines: 382, badge: 'system', category: 'system' },
+            { id: 'celestial-mechanics.js', name: 'Celestial Mechanics', icon: '🪐', desc: 'NASA-grade IAU 2000/2006 transformations', lines: 500, badge: 'system', category: 'system' },
+            { id: 'physics-engine.js', name: 'Physics Engine', icon: '⚡', desc: 'Rigid body dynamics and collision detection', lines: 632, badge: 'system', category: 'system' },
+            { id: 'living-nature.js', name: 'Living Nature', icon: '🦋', desc: '6 animals + 6 plants with AI emotions', lines: 1177, badge: 'system', category: 'system' },
+            { id: 'intelligent-agents.js', name: 'Intelligent Agents', icon: '🤖', desc: 'Alice, Aria, Lucidia with behavior trees', lines: 862, badge: 'system', category: 'system' },
+            { id: 'infinite-biomes.js', name: 'Infinite Biomes', icon: '🌲', desc: '6 procedurally generated biomes', lines: 492, badge: 'system', category: 'system' },
+            { id: 'photorealistic-graphics.js', name: 'Photorealistic Graphics', icon: '🎨', desc: 'PBR materials and custom GLSL shaders', lines: 743, badge: 'system', category: 'system' },
+            { id: 'game-integration.js', name: 'Game Integration', icon: '🎯', desc: 'System orchestrator for all 17 modules', lines: 890, badge: 'system', category: 'system' },
+            { id: 'crafting-building.js', name: 'Crafting & Building', icon: '🛠️', desc: 'Material system with 30+ recipes', lines: 741, badge: 'system', category: 'system' },
+            { id: 'quest-system.js', name: 'Quest System', icon: '🏆', desc: '12 unique quests with achievements', lines: 676, badge: 'system', category: 'system' },
+            { id: 'dialogue-story.js', name: 'Dialogue & Story', icon: '💬', desc: 'Branching conversations and story arcs', lines: 674, badge: 'system', category: 'system' },
+            { id: 'world-evolution.js', name: 'World Evolution', icon: '🌍', desc: 'Seasons, weather, and ecosystem simulation', lines: 673, badge: 'system', category: 'system' },
+            { id: 'STATUS.md', name: 'Complete Status', icon: '📊', desc: 'Full project documentation and metrics', lines: 561, badge: 'docs', category: 'docs' },
+            { id: 'DOMAIN_SETUP.md', name: 'Domain Setup Guide', icon: '🌐', desc: 'Instructions for universe.blackroad.io', lines: 244, badge: 'docs', category: 'docs' }
+        ];
+
+        const FILE_URL_MAP = {
+            'universe.html': '../blackroad-metaverse/universe.html',
+            'index.html': '../blackroad-metaverse/index.html',
+            'module-loader.js': '../blackroad-metaverse/module-loader.js',
+            'truth-contracts.js': '../blackroad-metaverse/truth-contracts.js',
+            'celestial-mechanics.js': '../blackroad-metaverse/celestial-mechanics.js',
+            'physics-engine.js': '../blackroad-metaverse/physics-engine.js',
+            'living-nature.js': '../blackroad-metaverse/living-nature.js',
+            'intelligent-agents.js': '../blackroad-metaverse/intelligent-agents.js',
+            'infinite-biomes.js': '../blackroad-metaverse/infinite-biomes.js',
+            'photorealistic-graphics.js': '../blackroad-metaverse/photorealistic-graphics.js',
+            'game-integration.js': '../blackroad-metaverse/game-integration.js',
+            'crafting-building.js': '../blackroad-metaverse/crafting-building.js',
+            'quest-system.js': '../blackroad-metaverse/quest-system.js',
+            'dialogue-story.js': '../blackroad-metaverse/dialogue-story.js',
+            'world-evolution.js': '../blackroad-metaverse/world-evolution.js',
+            'STATUS.md': '../blackroad-metaverse/STATUS.md',
+            'DOMAIN_SETUP.md': '../blackroad-metaverse/DOMAIN_SETUP.md'
+        };
+
+        // ============================================
+        // TOAST NOTIFICATION SYSTEM
+        // ============================================
+        const toastContainer = document.getElementById('toast-container');
+
+        function showToast(type, title, message, duration = 4000) {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            const icons = { success: '✓', error: '✕', warning: '⚠', info: 'ℹ' };
+
+            toast.innerHTML = `
+                <span class="toast-icon">${icons[type] || 'ℹ'}</span>
+                <div class="toast-content">
+                    <div class="toast-title">${title}</div>
+                    <div class="toast-message">${message}</div>
+                </div>
+                <button class="toast-close" aria-label="Close">&times;</button>
+            `;
+
+            toast.querySelector('.toast-close').onclick = () => dismissToast(toast);
+            toastContainer.appendChild(toast);
+
+            if (duration > 0) setTimeout(() => dismissToast(toast), duration);
+            return toast;
+        }
+
+        function dismissToast(toast) {
+            if (!toast || toast.classList.contains('hiding')) return;
+            toast.classList.add('hiding');
+            setTimeout(() => toast.remove(), 300);
+        }
+
+        // ============================================
+        // SESSION MANAGEMENT
+        // ============================================
+        let sessionCheckInterval;
+        let currentFile = null;
+
         function checkAuth() {
             const session = localStorage.getItem(SESSION_KEY);
             if (!session) {
@@ -505,7 +1201,8 @@
 
                 if (sessionData.expires < now) {
                     localStorage.removeItem(SESSION_KEY);
-                    window.location.href = 'index.html';
+                    showToast('warning', 'Session Expired', 'Redirecting to login...');
+                    setTimeout(() => window.location.href = 'index.html', 1500);
                     return null;
                 }
 
@@ -517,54 +1214,353 @@
             }
         }
 
-        // Initialize
+        function startSessionMonitor() {
+            sessionCheckInterval = setInterval(() => {
+                const session = localStorage.getItem(SESSION_KEY);
+                if (!session) return;
+
+                const sessionData = JSON.parse(session);
+                const timeLeft = sessionData.expires - Date.now();
+
+                if (timeLeft <= 0) {
+                    clearInterval(sessionCheckInterval);
+                    showToast('error', 'Session Expired', 'Please log in again.');
+                    setTimeout(() => window.location.href = 'index.html', 2000);
+                } else if (timeLeft <= SESSION_WARNING_TIME) {
+                    const minutes = Math.floor(timeLeft / 60000);
+                    const seconds = Math.floor((timeLeft % 60000) / 1000);
+                    document.getElementById('session-countdown').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+                    document.getElementById('session-banner').classList.add('show');
+                }
+            }, 1000);
+        }
+
+        function extendSession() {
+            const session = localStorage.getItem(SESSION_KEY);
+            if (session) {
+                const sessionData = JSON.parse(session);
+                sessionData.expires = Date.now() + SESSION_DURATION;
+                localStorage.setItem(SESSION_KEY, JSON.stringify(sessionData));
+                document.getElementById('session-banner').classList.remove('show');
+                showToast('success', 'Session Extended', 'Your session has been extended for 24 hours.');
+            }
+        }
+
+        // ============================================
+        // FAVORITES SYSTEM
+        // ============================================
+        function getFavorites() {
+            const data = localStorage.getItem(FAVORITES_KEY);
+            return data ? JSON.parse(data) : [];
+        }
+
+        function saveFavorites(favorites) {
+            localStorage.setItem(FAVORITES_KEY, JSON.stringify(favorites));
+            updateFavoritesCount();
+        }
+
+        function toggleFavorite(fileId, event) {
+            event.stopPropagation();
+            const favorites = getFavorites();
+            const index = favorites.indexOf(fileId);
+
+            if (index > -1) {
+                favorites.splice(index, 1);
+                showToast('info', 'Removed from Favorites', `${fileId} removed from favorites`);
+            } else {
+                favorites.push(fileId);
+                showToast('success', 'Added to Favorites', `${fileId} added to favorites`);
+            }
+
+            saveFavorites(favorites);
+            renderFileGrid();
+        }
+
+        function isFavorite(fileId) {
+            return getFavorites().includes(fileId);
+        }
+
+        function updateFavoritesCount() {
+            document.getElementById('count-favorites').textContent = getFavorites().length;
+        }
+
+        // ============================================
+        // FILE GRID RENDERING
+        // ============================================
+        let currentFilter = 'all';
+        let currentSearch = '';
+        let currentView = 'grid';
+
+        function renderFileGrid() {
+            const grid = document.getElementById('file-grid');
+            const emptyState = document.getElementById('empty-state');
+            const favorites = getFavorites();
+
+            // Filter files
+            let filteredFiles = FILES_DB.filter(file => {
+                const matchesSearch = currentSearch === '' ||
+                    file.name.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    file.desc.toLowerCase().includes(currentSearch.toLowerCase()) ||
+                    file.id.toLowerCase().includes(currentSearch.toLowerCase());
+
+                const matchesFilter = currentFilter === 'all' ||
+                    (currentFilter === 'favorites' && favorites.includes(file.id)) ||
+                    file.category === currentFilter;
+
+                return matchesSearch && matchesFilter;
+            });
+
+            // Clear and rebuild grid
+            grid.innerHTML = '';
+
+            if (filteredFiles.length === 0) {
+                emptyState.style.display = 'block';
+                grid.style.display = 'none';
+            } else {
+                emptyState.style.display = 'none';
+                grid.style.display = '';
+                grid.className = `file-grid ${currentView === 'list' ? 'list-view' : ''}`;
+
+                filteredFiles.forEach(file => {
+                    const isFav = favorites.includes(file.id);
+                    const card = document.createElement('div');
+                    card.className = 'file-card';
+                    card.setAttribute('tabindex', '0');
+                    card.setAttribute('role', 'button');
+                    card.setAttribute('aria-label', `${file.name}: ${file.desc}`);
+                    card.onclick = () => openFile(file.id);
+                    card.onkeydown = (e) => { if (e.key === 'Enter') openFile(file.id); };
+
+                    card.innerHTML = `
+                        <button class="favorite-btn ${isFav ? 'favorited' : ''}"
+                                onclick="toggleFavorite('${file.id}', event)"
+                                aria-label="${isFav ? 'Remove from favorites' : 'Add to favorites'}"
+                                title="${isFav ? 'Remove from favorites' : 'Add to favorites'}">
+                            ${isFav ? '★' : '☆'}
+                        </button>
+                        <div class="file-icon">${file.icon}</div>
+                        <div class="file-title">${file.name}</div>
+                        <div class="file-description">${file.desc}</div>
+                        <div class="file-meta">
+                            <span class="file-badge ${file.badge}">${file.badge.toUpperCase()}</span>
+                            <span>${file.lines.toLocaleString()} lines</span>
+                        </div>
+                    `;
+
+                    grid.appendChild(card);
+                });
+            }
+
+            // Update counts
+            updateFilterCounts();
+        }
+
+        function updateFilterCounts() {
+            const favorites = getFavorites();
+            document.getElementById('count-all').textContent = FILES_DB.length;
+            document.getElementById('count-live').textContent = FILES_DB.filter(f => f.category === 'live').length;
+            document.getElementById('count-system').textContent = FILES_DB.filter(f => f.category === 'system').length;
+            document.getElementById('count-docs').textContent = FILES_DB.filter(f => f.category === 'docs').length;
+            document.getElementById('count-favorites').textContent = favorites.length;
+        }
+
+        // ============================================
+        // SEARCH & FILTER
+        // ============================================
+        const searchInput = document.getElementById('search-input');
+        const searchClear = document.getElementById('search-clear');
+
+        searchInput.addEventListener('input', (e) => {
+            currentSearch = e.target.value;
+            searchClear.classList.toggle('show', currentSearch.length > 0);
+            renderFileGrid();
+        });
+
+        searchClear.addEventListener('click', () => {
+            searchInput.value = '';
+            currentSearch = '';
+            searchClear.classList.remove('show');
+            renderFileGrid();
+            searchInput.focus();
+        });
+
+        // Filter buttons
+        document.querySelectorAll('.filter-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentFilter = btn.dataset.filter;
+                renderFileGrid();
+            });
+        });
+
+        // View toggle
+        document.querySelectorAll('.view-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentView = btn.dataset.view;
+                renderFileGrid();
+            });
+        });
+
+        // ============================================
+        // FILE PREVIEW MODAL
+        // ============================================
+        const modalOverlay = document.getElementById('modal-overlay');
+
+        function openFile(filename) {
+            const file = FILES_DB.find(f => f.id === filename);
+            const url = FILE_URL_MAP[filename];
+
+            if (!file || !url) return;
+
+            currentFile = { ...file, url };
+
+            // For HTML files, open directly
+            if (filename.endsWith('.html')) {
+                window.open(url, '_blank');
+                showToast('info', 'Opening File', `${file.name} opened in new tab`);
+                return;
+            }
+
+            // For other files, show preview modal
+            document.getElementById('modal-icon').textContent = file.icon;
+            document.getElementById('modal-filename').textContent = file.name;
+            document.getElementById('modal-meta').textContent = `${file.lines.toLocaleString()} lines • ${file.category.toUpperCase()}`;
+
+            const modalBody = document.getElementById('modal-body');
+            modalBody.innerHTML = '<div class="loading-spinner"><div class="spinner"></div></div>';
+
+            modalOverlay.classList.add('show');
+            document.body.style.overflow = 'hidden';
+
+            // Simulate loading file content (in real app, fetch the file)
+            setTimeout(() => {
+                const sampleContent = generateSampleContent(file);
+                modalBody.innerHTML = `<pre><code>${escapeHtml(sampleContent)}</code></pre>`;
+            }, 500);
+        }
+
+        function generateSampleContent(file) {
+            if (file.id.endsWith('.md')) {
+                return `# ${file.name}\n\n${file.desc}\n\n## Overview\nThis file contains ${file.lines} lines of documentation.\n\n## Contents\n- Section 1: Introduction\n- Section 2: Configuration\n- Section 3: Usage Examples\n- Section 4: API Reference\n\n---\n*BlackRoad OS Documentation*`;
+            }
+            return `/**\n * ${file.name}\n * ${file.desc}\n * \n * @module ${file.id.replace('.js', '')}\n * @version 1.0.0\n * @lines ${file.lines}\n */\n\nclass ${file.name.replace(/[^a-zA-Z]/g, '')} {\n    constructor() {\n        this.initialized = false;\n        this.config = {};\n    }\n\n    async init() {\n        console.log('Initializing ${file.name}...');\n        this.initialized = true;\n        return this;\n    }\n\n    // ... ${file.lines - 20} more lines of code\n}\n\nexport default ${file.name.replace(/[^a-zA-Z]/g, '')};`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('show');
+            document.body.style.overflow = '';
+            currentFile = null;
+        }
+
+        function openFileExternal() {
+            if (currentFile && currentFile.url) {
+                window.open(currentFile.url, '_blank');
+                showToast('info', 'Opening File', `${currentFile.name} opened in new tab`);
+            }
+        }
+
+        // Close modal on escape or clicking overlay
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) closeModal();
+        });
+
+        // ============================================
+        // KEYBOARD SHORTCUTS
+        // ============================================
+        const shortcutsPanel = document.getElementById('shortcuts-panel');
+        let shortcutsVisible = true;
+
+        document.addEventListener('keydown', (e) => {
+            // Ignore if typing in input
+            if (e.target.tagName === 'INPUT') {
+                if (e.key === 'Escape') {
+                    e.target.blur();
+                    searchInput.value = '';
+                    currentSearch = '';
+                    searchClear.classList.remove('show');
+                    renderFileGrid();
+                }
+                return;
+            }
+
+            switch (e.key) {
+                case '/':
+                    e.preventDefault();
+                    searchInput.focus();
+                    break;
+                case 'Escape':
+                    if (modalOverlay.classList.contains('show')) {
+                        closeModal();
+                    }
+                    break;
+                case 'g':
+                case 'G':
+                    document.querySelector('[data-view="grid"]').click();
+                    showToast('info', 'View Changed', 'Switched to grid view');
+                    break;
+                case 'l':
+                case 'L':
+                    document.querySelector('[data-view="list"]').click();
+                    showToast('info', 'View Changed', 'Switched to list view');
+                    break;
+                case '?':
+                    shortcutsVisible = !shortcutsVisible;
+                    shortcutsPanel.style.display = shortcutsVisible ? 'block' : 'none';
+                    break;
+                case '1':
+                    document.querySelector('[data-filter="all"]').click();
+                    break;
+                case '2':
+                    document.querySelector('[data-filter="live"]').click();
+                    break;
+                case '3':
+                    document.querySelector('[data-filter="system"]').click();
+                    break;
+                case '4':
+                    document.querySelector('[data-filter="docs"]').click();
+                    break;
+                case '5':
+                    document.querySelector('[data-filter="favorites"]').click();
+                    break;
+            }
+        });
+
+        // ============================================
+        // LOGOUT
+        // ============================================
+        function logout() {
+            showToast('info', 'Logging Out', 'See you soon!');
+            setTimeout(() => {
+                localStorage.removeItem(SESSION_KEY);
+                window.location.href = 'index.html';
+            }, 1000);
+        }
+
+        // ============================================
+        // INITIALIZATION
+        // ============================================
         const session = checkAuth();
         if (session) {
             document.getElementById('user-name').textContent = session.username;
             document.getElementById('user-avatar').textContent = session.username.charAt(0).toUpperCase();
-        }
 
-        // Logout function
-        function logout() {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem(SESSION_KEY);
-                window.location.href = 'index.html';
-            }
-        }
+            // Start session monitoring
+            startSessionMonitor();
 
-        // Open file function
-        function openFile(filename) {
-            // Map files to their actual URLs
-            const fileMap = {
-                'universe.html': '../blackroad-metaverse/universe.html',
-                'index.html': '../blackroad-metaverse/index.html',
-                'module-loader.js': '../blackroad-metaverse/module-loader.js',
-                'truth-contracts.js': '../blackroad-metaverse/truth-contracts.js',
-                'celestial-mechanics.js': '../blackroad-metaverse/celestial-mechanics.js',
-                'physics-engine.js': '../blackroad-metaverse/physics-engine.js',
-                'living-nature.js': '../blackroad-metaverse/living-nature.js',
-                'intelligent-agents.js': '../blackroad-metaverse/intelligent-agents.js',
-                'infinite-biomes.js': '../blackroad-metaverse/infinite-biomes.js',
-                'photorealistic-graphics.js': '../blackroad-metaverse/photorealistic-graphics.js',
-                'game-integration.js': '../blackroad-metaverse/game-integration.js',
-                'crafting-building.js': '../blackroad-metaverse/crafting-building.js',
-                'quest-system.js': '../blackroad-metaverse/quest-system.js',
-                'dialogue-story.js': '../blackroad-metaverse/dialogue-story.js',
-                'world-evolution.js': '../blackroad-metaverse/world-evolution.js',
-                'STATUS.md': '../blackroad-metaverse/STATUS.md',
-                'DOMAIN_SETUP.md': '../blackroad-metaverse/DOMAIN_SETUP.md'
-            };
+            // Initial render
+            renderFileGrid();
 
-            const url = fileMap[filename];
-            if (url) {
-                if (filename.endsWith('.html')) {
-                    // Open HTML files directly
-                    window.open(url, '_blank');
-                } else {
-                    // For other files, we'll need a file viewer
-                    alert(`File: ${filename}\nPath: ${url}\n\nViewer coming soon!`);
-                }
-            }
+            // Welcome toast
+            showToast('success', `Welcome, ${session.username}!`, 'You have access to all BlackRoad files.');
         }
     </script>
 </body>
